@@ -61,9 +61,9 @@
        * @returns void
        */
 
-       onSwitch($event, index){
+      onSwitch($event, index) {
         if (this.lightControllers.length === 0) return;
-        $event? this.lightControllers[index].turnOn() : this.lightControllers[index].turnOff();
+        $event ? this.lightControllers[index].turnOn() : this.lightControllers[index].turnOff();
         this.data.changeCode(`device.${$event ? "turnOn()" : "turnOff()"}`);
       },
 
@@ -72,29 +72,29 @@
        * @param index 选中设备的 index 值
        * @returns
        */
-      async onClick(index){
+      async onClick(index) {
         if (!this.lights[index]) return;
         await this.lights[index].focus(1000, -Math.PI / 6);
         this.data.changeCode(`device.focus(1000, -Math.PI / 6)`);
       },
     },
-    mounted(){
+    mounted() {
       diva.client.applyScene("灯光控制");
-        // 初始化设备的初始状态
-        this.lightDecs.forEach((lightDec) => (lightDec.state = true));
-        this.lightDecs.forEach(async (lightDec) => {
-          const lightController = new DeviceController();
-          const [light] = await diva.client.getEntitiesByName(
-            lightDec.title
-          );
-          light.bind(lightController.signal); // 绑定控制器
-          lightController.turnOff();
-          this.lights.push(light);
-          this.lightControllers.push(lightController);
-        });
-        setTimeout(() => {
-          this.data.changeCode(`client.applyScene('灯光控制')`);
-        }, 0);
+      // 初始化设备的初始状态
+      this.lightDecs.forEach((lightDec) => (lightDec.state = true));
+      this.lightDecs.forEach(async (lightDec) => {
+        const lightController = new DeviceController();
+        const [light] = await diva.client.getEntitiesByName(
+          lightDec.title
+        );
+        light.bind(lightController.signal); // 绑定控制器
+        lightController.turnOff();
+        this.lights.push(light);
+        this.lightControllers.push(lightController);
+      });
+      setTimeout(() => {
+        this.data.changeCode(`client.applyScene('灯光控制')`);
+      }, 0);
     },
     components: {
       contentBlock,

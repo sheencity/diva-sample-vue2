@@ -30,7 +30,7 @@
     data() {
       return {
         data: new DataService(),
-         weathers: [{
+        weathers: [{
             title: "默认",
             typeName: "default",
           },

@@ -79,10 +79,10 @@
       }
     },
 
-    mounted(){
-       diva.client.applyScene("半鸟瞰").then(() => {
-          this.data.changeCode(`client.applyScene('半鸟瞰')`);
-        })
+    mounted() {
+      diva.client.applyScene("半鸟瞰").then(() => {
+        this.data.changeCode(`client.applyScene('半鸟瞰')`);
+      })
     },
 
     components: {

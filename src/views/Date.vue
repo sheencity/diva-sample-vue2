@@ -114,8 +114,8 @@
         const time = new Date();
         const timearr = [...($event.target.value.split(":").map((val) => parseInt(val, 10)))];
         time.setHours(
-          Number(timearr[0]),Number(timearr[1])
-          );
+          Number(timearr[0]), Number(timearr[1])
+        );
         diva.client.setTime(time);
         this.data.changeCode(`client.setTime(new Date('${time}'))`);
       },

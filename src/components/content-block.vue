@@ -5,18 +5,14 @@
     </div>
   </div>
 </template>
-
 <script>
   export default {
     props: {
       caption: String,
       width: Number,
     }
-
   }
 </script>
-
-
 <style lang="scss">
   .content-block-main {
     width: 240px;

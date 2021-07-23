@@ -14,7 +14,7 @@
 
 <script>
   import contentBlock from "../components/content-block.vue";
-  
+
   import {
     DataService
   } from "../services/data.service";
@@ -23,10 +23,10 @@
   } from "../global";
 
   export default {
-    
-    data(){
-      return{
-         scenes: [{
+
+    data() {
+      return {
+        scenes: [{
             title: "测试场景01",
             index: 0,
           },
@@ -71,22 +71,20 @@
       }
     },
 
-    methods:{
-      switchScene(scene){
-         diva.client.applyScene(scene.index).then(() => {
+    methods: {
+      switchScene(scene) {
+        diva.client.applyScene(scene.index).then(() => {
           this.data.changeCode(`client.applyScene('${scene.title}')`);
         });
       }
     },
-    created(){
-      
-    },
-    async mounted(){
+
+    async mounted() {
       diva.client.applyScene("半鸟瞰").then(() => {
-          this.data.changeCode(`client.applyScene('半鸟瞰')`);
-        });
+        this.data.changeCode(`client.applyScene('半鸟瞰')`);
+      });
     },
-    components:{
+    components: {
       contentBlock
     }
   };

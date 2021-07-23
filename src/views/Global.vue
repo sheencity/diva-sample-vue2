@@ -72,7 +72,7 @@
       return {
         data: new DataService(),
         compass: false,
-        options:[{
+        options: [{
             value: "false",
             placeholder: "飞行",
           },
@@ -81,10 +81,10 @@
             placeholder: "人视",
           },
         ],
-        initvalue:{
-            value: "false",
-            placeholder: "飞行",
-          }
+        initvalue: {
+          value: "false",
+          placeholder: "飞行",
+        }
       }
     },
     methods: {
@@ -106,14 +106,14 @@
     },
     async mounted() {
       await diva.client.applyScene("全局配置");
-        this.compass = this.data.compass;
-        diva.client.setCompass(this.compass);
-        this.data.changeCode(`client.setCompass(${this.compass})`);
-        setTimeout(() => {
-          this.data.changeCode(`client.applyScene('全局配置')`);
-        }, 0);
+      this.compass = this.data.compass;
+      diva.client.setCompass(this.compass);
+      this.data.changeCode(`client.setCompass(${this.compass})`);
+      setTimeout(() => {
+        this.data.changeCode(`client.applyScene('全局配置')`);
+      }, 0);
     },
-    destroyed(){
+    destroyed() {
       diva.client.setMovementMode(MovementMode.Fly);
     },
     components: {

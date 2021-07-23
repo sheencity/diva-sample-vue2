@@ -1,4 +1,3 @@
-
 <template>
   <div class="win">
     <div id="backendContainer" class="backend-container"></div>
@@ -27,8 +26,10 @@
   import {
     diva
   } from './global';
-  import { Subject } from 'rxjs';
-   import {
+  import {
+    Subject
+  } from 'rxjs';
+  import {
     debounceTime
   } from "rxjs/operators";
   export default {
@@ -38,9 +39,6 @@
         changeResolution: new Subject(),
         isRouter: false
       }
-    },
-    created() {
-
     },
 
     async mounted() {
@@ -58,7 +56,7 @@
         this.changeResolution
           .pipe(debounceTime(200))
           .subscribe(this.updateResolution);
-          this.isRouter = true;
+        this.isRouter = true;
       }
     },
 
@@ -86,7 +84,6 @@
 
 
 <style lang="scss" scoped>
-
   .win {
     width: 100%;
     height: 100%;
@@ -151,5 +148,4 @@
     bottom: -1px;
     right: -1px;
   }
-
 </style>

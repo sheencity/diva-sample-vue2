@@ -94,7 +94,7 @@
         this.data.changeCode(`client.applyScene('空调控制')`)
       }, 0);
     },
-    destroyed(){
+    destroyed() {
       this.airControllers.forEach((airController) => airController.turnOff());
     },
     components: {

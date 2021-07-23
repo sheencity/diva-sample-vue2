@@ -15,15 +15,14 @@
   export default {
     data() {
       return {
-       
+
       }
     },
     mounted() {
 
     },
     props: [],
-    methods: {
-    }
+    methods: {}
   }
 </script>
 

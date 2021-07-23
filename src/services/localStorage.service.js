@@ -30,7 +30,7 @@ export class LocalStorageService {
   /**
    * 获取 localStorage 中所有的覆盖物信息
    */
-  getAllOverlays(k = STORE_TOKEN){
+  getAllOverlays(k = STORE_TOKEN) {
     return JSON.parse(localStorage.getItem(k)) || [];
   }
 }

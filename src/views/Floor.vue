@@ -268,7 +268,7 @@
           diva.client.setPathVisibility(i, v);
         });
       },
-      
+
       explodef(val) {
         this.setexplode(val);
       },

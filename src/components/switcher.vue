@@ -24,10 +24,6 @@
       }
     },
 
-    async mounted() {
-
-    },
-
     methods: {
       onClick(e) {
         e.stopPropagation();

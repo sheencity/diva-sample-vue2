@@ -19,67 +19,67 @@ const routes = [{
     path: "/video",
     name: "Video",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Video.vue"),
+      import( /* webpackChunkName: "video" */ "../views/Video.vue"),
   },
   {
     path: "/global",
     name: "Global",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Global.vue"),
+      import( /* webpackChunkName: "global" */ "../views/Global.vue"),
   },
   {
     path: "/weather",
     name: "Weather",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Weather.vue"),
+      import( /* webpackChunkName: "weather" */ "../views/Weather.vue"),
   },
   {
     path: "/floor",
     name: "Floor",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Floor.vue"),
+      import( /* webpackChunkName: "floor" */ "../views/Floor.vue"),
   },
   {
     path: "/date",
     name: "Date",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Date.vue"),
+      import( /* webpackChunkName: "date" */ "../views/Date.vue"),
   },
   {
     path: "/state",
     name: "State",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/State.vue"),
+      import( /* webpackChunkName: "state" */ "../views/State.vue"),
   },
   {
     path: "/monitor",
     name: "Monitor",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Monitor.vue"),
+      import( /* webpackChunkName: "monitor" */ "../views/Monitor.vue"),
   },
   {
     path: "/lamp",
     name: "Lamp",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Lamp.vue"),
+      import( /* webpackChunkName: "lamp" */ "../views/Lamp.vue"),
   },
   {
     path: "/airConditioner",
     name: "AirConditioner",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/AirConditioner.vue"),
+      import( /* webpackChunkName: "airConditioner" */ "../views/AirConditioner.vue"),
   },
   {
     path: "/customize",
     name: "Customize",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Customize.vue"),
+      import( /* webpackChunkName: "customize" */ "../views/Customize.vue"),
   },
   {
     path: "/overlay",
     name: "Overlay",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Overlay.vue"),
+      import( /* webpackChunkName: "overlay" */ "../views/Overlay.vue"),
   }
 ]
 

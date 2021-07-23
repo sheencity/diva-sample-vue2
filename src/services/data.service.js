@@ -1,9 +1,14 @@
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject
+} from 'rxjs';
 
 
 export class DataService {
   // 人视模式
-  selectedMode = { value: 'false', placeholder: '飞行' };
+  selectedMode = {
+    value: 'false',
+    placeholder: '飞行'
+  };
   // 罗盘显示
   compass = false;
   // 是否旋转
@@ -20,7 +25,7 @@ export class DataService {
     this.changeCode('client.applyScene("场景切换")');
   }
   changeCode(...code) {
-    if(!code || !code.length) return;
+    if (!code || !code.length) return;
     this._code.next(code.reduce((pre, cur) => pre + '\n' + cur));
   }
 }
