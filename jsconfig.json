@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./**",
+    "target": "es5",             
+    "checkJs": true,       // 这个是主要的               
+  },
+  "include": ["**/*"],
+  "exclude": []
+}
