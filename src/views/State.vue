@@ -5,7 +5,7 @@
       <div class="drop-item" :class="{'selected':selected === i}">
         <span>{{equipment.title}}</span>
         <div class="drop-down">
-          <drop-down :options="options" :initvalue="inintval" @select="onChange(equipment, $event)" :disabled="false">
+          <drop-down :options="options" :initvalue="initial" @select="onChange(equipment, $event)" :disabled="false">
           </drop-down>
         </div>
       </div>
@@ -32,7 +32,7 @@
         data: new DataService(),
         equipments: [],
         options: [],
-        inintval: {
+        initial: {
           value: RenderingStyleMode.Default,
           placeholder: "默认"
         },

@@ -112,9 +112,9 @@
       // 设置自定义时间
       onTimeChange($event) {
         const time = new Date();
-        const timearr = [...($event.target.value.split(":").map((val) => parseInt(val, 10)))];
+        const timers = [...($event.target.value.split(":").map((val) => parseInt(val, 10)))];
         time.setHours(
-          Number(timearr[0]), Number(timearr[1])
+          Number(timers[0]), Number(timers[1])
         );
         diva.client.setTime(time);
         this.data.changeCode(`client.setTime(new Date('${time}'))`);

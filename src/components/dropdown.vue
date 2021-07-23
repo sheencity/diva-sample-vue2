@@ -1,7 +1,7 @@
 <template>
   <a class="select">
     <p :class="{'select-disabled':disabled}" style="margin: 0;user-select: none;">
-      <input type="text" class="placeholder" :disabled="disabled" :value="initval.placeholder" readonly
+      <input type="text" class="placeholder" :disabled="disabled" :value="initial.placeholder" readonly
         @blur="onBlur($event)" @keydown='$event.preventDefault();' @click="onClick()">
       <img class="arrow-down" :class="{'activity':!hideOptions}" width="9" height="6"
         :src="disabled? require('../assets/arrow-down-disabled.svg') : require('../assets/arrow-down.svg')" />
@@ -21,7 +21,7 @@
     data() {
       return {
         hideOptions: true,
-        initval: this.initvalue
+        initial: this.initvalue
       }
     },
     methods: {
@@ -33,7 +33,7 @@
       },
       menuClick(item) {
         this.hideOptions = true;
-        this.initval = item;
+        this.initial = item;
         this.$emit("select", item);
       },
       onBlur(ev) {

@@ -5,10 +5,10 @@
 <script>
   export default {
     model: {
-      prop: 'inval',
+      prop: 'initial',
       event: 'input'
     },
-    props: ['max', 'min', 'inval'],
+    props: ['max', 'min', 'initial'],
 
     data() {
       return {
@@ -16,12 +16,12 @@
       }
     },
     created() {
-      this.value = this.inval
+      this.value = this.initial
 
     },
     watch: {
-      inval() {
-        this.value = this.inval
+      initial() {
+        this.value = this.initial
       }
     },
     methods: {

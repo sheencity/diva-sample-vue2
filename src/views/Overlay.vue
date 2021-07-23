@@ -6,7 +6,7 @@
       <div class="drop-item">
         <span>种类</span>
         <div>
-          <drop-down :key="1" :options="typeOptions" :initvalue="typeInintval" @select="setSelectedType"
+          <drop-down :key="1" :options="typeOptions" :initvalue="typeInitial" @select="setSelectedType"
             :disabled="false">
           </drop-down>
         </div>
@@ -41,7 +41,7 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'Marker'">
         <span>对齐方式</span>
         <div>
-          <drop-down :key="2" :options="alignOptions" :initvalue="alignInintval" @select="setSelectedAlign"
+          <drop-down :key="2" :options="alignOptions" :initvalue="alignInitial" @select="setSelectedAlign"
             :disabled="false">
           </drop-down>
         </div>
@@ -49,14 +49,14 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'emissiveOverlay'">
         <span>类型</span>
         <div>
-          <drop-down :key="3" :options="emissiveOptions" :initvalue="emissiveInintval" @select="setSelectedEmissive"
+          <drop-down :key="3" :options="emissiveOptions" :initvalue="emissiveInitial" @select="setSelectedEmissive"
             :disabled="false"></drop-down>
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>类型</span>
         <div>
-          <drop-down :key="4" :options="iconOptions" :initvalue="iconInintval" @select="setSelectedIcon"
+          <drop-down :key="4" :options="iconOptions" :initvalue="iconInitial" @select="setSelectedIcon"
             :disabled="false">
           </drop-down>
         </div>
@@ -201,19 +201,19 @@
           value: 'center',
           placeholder: '居中',
         },
-        alignInintval: {
+        alignInitial: {
           value: 'center',
           placeholder: '居中'
         },
-        emissiveInintval: {
+        emissiveInitial: {
           value: '悬浮标记01',
           placeholder: '悬浮标记01'
         },
-        iconInintval: {
+        iconInitial: {
           value: 'camera',
           placeholder: '摄像头'
         },
-        typeInintval: {
+        typeInitial: {
           value: 'poi',
           placeholder: 'POI'
         },
