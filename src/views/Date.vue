@@ -40,8 +40,8 @@
   import contentBlock from "@/components/content-block.vue";
 
   import {
-    DataService
-  } from "../services/data.service";
+    data
+  } from "../global";
   import {
     diva
   } from "../global";
@@ -53,7 +53,7 @@
 
     data() {
       return {
-        data: new DataService(),
+
         seasons: [{
             title: "春",
             value: "2021-03-21",
@@ -107,7 +107,7 @@
       onDateChange($event) {
         const date = new Date($event.target.value);
         diva.client.setDate(date);
-        this.data.changeCode(`client.setDate(new Date('${date}'))`);
+        data.changeCode(`client.setDate(new Date('${date}'))`);
       },
       // 设置自定义时间
       onTimeChange($event) {
@@ -117,7 +117,7 @@
           Number(timers[0]), Number(timers[1])
         );
         diva.client.setTime(time);
-        this.data.changeCode(`client.setTime(new Date('${time}'))`);
+        data.changeCode(`client.setTime(new Date('${time}'))`);
       },
       async switchSeason(season) {
         await diva.client.setDate(new Date(season.value));
@@ -127,20 +127,20 @@
           await diva.client.setWeather(WeatherName.Default);
         }
         if (season.name === "winterSnow") {
-          this.data.changeCode(
+          data.changeCode(
             `client.setDate(new Date('${season.value}'));`,
             `client.setWeather('snow')`
           );
         } else if (season.name === "autumn") {
           // 秋季需要设置 11-01， 代码显示 09-23
-          this.data.changeCode(`client.setDate(new Date('2021-09-23'))`);
+          data.changeCode(`client.setDate(new Date('2021-09-23'))`);
         } else {
-          this.data.changeCode(`client.setDate(new Date('${season.value}'))`);
+          data.changeCode(`client.setDate(new Date('${season.value}'))`);
         }
       },
       async switchNoon(noon) {
         diva.client.setTime(this.getTime(noon.value, 0));
-        this.data.changeCode(
+        data.changeCode(
           "const now = new Date();",
           `const time = (now.setHours(${noon.value}), now);`,
           "client.setTime(time);"
@@ -171,7 +171,7 @@
       diva.client.setDate(new Date());
       diva.client.setTime(new Date());
       diva.client.applyScene("日期时间").then(() => {
-        this.data.changeCode(`client.applyScene('日期时间')`);
+       data.changeCode(`client.applyScene('日期时间')`);
       });
     },
     destroyed() {

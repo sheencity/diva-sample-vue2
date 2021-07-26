@@ -137,8 +137,8 @@
     diva
   } from "../global";
   import {
-    DataService
-  } from "../services/data.service";
+    data
+  } from "../global";
   import {
     LocalStorageService
   } from "../services/localStorage.service";
@@ -162,7 +162,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         store: new LocalStorageService(),
         typeOptions: [],
         alignOptions: [],
@@ -372,7 +371,7 @@
           await poiOverlay.setClient(diva.client);
           poiOverlay.focus(1000, -Math.PI / 6);
           this.store.storeOverlay(overlay);
-          this.data.changeCode(
+          data.changeCode(
             `const overlay = new POI(config_learnMoreInTutorial);`,
             `await overlay.setClient(diva.client);`
           );
@@ -415,7 +414,7 @@
           await markerOverlay.setClient(diva.client);
           markerOverlay.focus(1000, -Math.PI / 6);
           this.store.storeOverlay(overlay);
-          this.data.changeCode(
+          data.changeCode(
             `const overlay = new Marker(config_learnMoreInTutorial);`,
             `await overlay.setClient(diva.client);`
           );
@@ -456,7 +455,7 @@
           await emissiveOverlay.setClient(diva.client);
           emissiveOverlay.focus(1000, -Math.PI / 6);
           this.store.storeOverlay(overlay);
-          this.data.changeCode(
+          data.changeCode(
             `const overlay = new Emissive(config_learnMoreInTutorial);`,
             `await overlay.setClient(diva.client);`
           );
@@ -476,7 +475,7 @@
         const entity = await diva.client.getEntityById(overlay.id);
         await entity.destroy();
         await entity.detach();
-        this.data.changeCode(`entity.destroy()`);
+        data.changeCode(`entity.destroy()`);
       },
 
 
@@ -519,7 +518,7 @@
         this.selectedId = overlay.id;
         const entity = await diva.client.getEntityById(overlay.id);
         entity.focus(1000, -Math.PI / 6);
-        this.data.changeCode(`model.focus(1000, -Math.PI / 6)`);
+        data.changeCode(`model.focus(1000, -Math.PI / 6)`);
       },
       /**
        * 拾取世界坐标
@@ -567,7 +566,7 @@
         this.overlays.push(e);
       })
       await diva.client.applyScene('覆盖物');
-      this.data.changeCode(`client.applyScene('覆盖物')`);
+      data.changeCode(`client.applyScene('覆盖物')`);
       this.overlays.map(async (overlay) => {
         const entity = await diva.client.getEntityById(overlay.id);
         entity.setVisibility(true);

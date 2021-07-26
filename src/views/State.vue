@@ -20,8 +20,8 @@
     diva
   } from "../global";
   import {
-    DataService
-  } from "../services/data.service";
+    data
+  } from "../global";
   import {
     RenderingStyleMode
   } from "@sheencity/diva-sdk";
@@ -29,7 +29,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         equipments: [],
         options: [],
         initial: {
@@ -120,7 +119,7 @@
         if (!model) return;
         const type = $event.value;
         model.setRenderingStyleMode(type);
-        this.data.changeCode(
+        data.changeCode(
           `model.setRenderingStyleMode(RenderingStyleMode.${
           type.slice(0, 1).toUpperCase() + type.slice(1)
         })`
@@ -129,7 +128,7 @@
     },
     async mounted() {
       diva.client.applyScene("状态演示").then(() => {
-        this.data.changeCode(`client.applyScene('状态演示')`);
+        data.changeCode(`client.applyScene('状态演示')`);
       });
     },
     destroyed() {

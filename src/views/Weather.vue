@@ -15,10 +15,9 @@
 
 <script>
   import contentBlock from "../components/content-block.vue";
-  import {
-    DataService
-  } from "../services/data.service";
-  // import { useStore } from "vuex";
+   import {
+    data
+  } from "../global";
   import {
     diva
   } from "../global";
@@ -29,7 +28,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         weathers: [{
             title: "默认",
             typeName: "default",
@@ -70,13 +68,13 @@
       switchWeather(weather) {
         if (!weather.typeName) return;
         diva.client.setWeather(weather.typeName).then(() => {
-          this.data.changeCode(`client.setWether('${weather.typeName}')`);
+          data.changeCode(`client.setWether('${weather.typeName}')`);
         });
       }
     },
     async mounted() {
       diva.client.applyScene("天气控制").then(() => {
-        this.data.changeCode(`client.applyScene('天气控制')`);
+        data.changeCode(`client.applyScene('天气控制')`);
       });
     },
     components: {

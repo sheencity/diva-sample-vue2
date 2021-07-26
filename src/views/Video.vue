@@ -15,9 +15,10 @@
 <script>
   import contentBlock from "../components/content-block.vue";
 
-  import {
-    DataService
-  } from "../services/data.service";
+ import {
+    data
+  } from "../global";
+
   import {
     diva
   } from "../global";
@@ -26,7 +27,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         videos: [{
             title: "测试路径01",
             index: 0
@@ -75,13 +75,13 @@
       async toggleVideo(video) {
         await diva.client.stopCameraTrack();
         await diva.client.playCameraTrack(video.index);
-        this.data.changeCode(`client.playCameraTrack('${video.title}')`);
+        data.changeCode(`client.playCameraTrack('${video.title}')`);
       }
     },
 
     mounted() {
       diva.client.applyScene("半鸟瞰").then(() => {
-        this.data.changeCode(`client.applyScene('半鸟瞰')`);
+        data.changeCode(`client.applyScene('半鸟瞰')`);
       })
     },
 

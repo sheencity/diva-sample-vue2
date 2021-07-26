@@ -18,9 +18,9 @@
   import {
     diva
   } from "../global";
-  import {
-    DataService
-  } from "../services/data.service";
+   import {
+    data
+  } from "../global";
 
   import {
     DeviceController
@@ -29,7 +29,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         airDecs: [],
         airs: [],
         airControllers: [],
@@ -64,7 +63,7 @@
       onSwitch($event, index) {
         if (this.airControllers.length === 0) return;
         $event ? this.airControllers[index].turnOn() : this.airControllers[index].turnOff();
-        this.data.changeCode(`device.${$event ? 'turnOn()' : 'turnOff()'}`);
+        data.changeCode(`device.${$event ? 'turnOn()' : 'turnOff()'}`);
       },
 
       /**
@@ -75,7 +74,7 @@
       async onClick(index) {
         if (!this.airs[index]) return;
         await this.airs[index].focus(1000, -Math.PI / 6);
-        this.data.changeCode(`device.focus(1000, -Math.PI / 6)`);
+        data.changeCode(`device.focus(1000, -Math.PI / 6)`);
       }
     },
     async mounted() {
@@ -91,7 +90,7 @@
         this.airControllers.push(airController);
       })
       setTimeout(() => {
-        this.data.changeCode(`client.applyScene('空调控制')`)
+        data.changeCode(`client.applyScene('空调控制')`)
       }, 0);
     },
     destroyed() {

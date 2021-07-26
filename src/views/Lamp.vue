@@ -18,8 +18,8 @@
     diva
   } from "../global";
   import {
-    DataService
-  } from "../services/data.service";
+      data
+    } from "../global";
   import {
     DeviceController
   } from "@sheencity/diva-sdk";
@@ -27,7 +27,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         lightDecs: [],
         lights: [],
         lightControllers: []
@@ -64,7 +63,7 @@
       onSwitch($event, index) {
         if (this.lightControllers.length === 0) return;
         $event ? this.lightControllers[index].turnOn() : this.lightControllers[index].turnOff();
-        this.data.changeCode(`device.${$event ? "turnOn()" : "turnOff()"}`);
+        data.changeCode(`device.${$event ? "turnOn()" : "turnOff()"}`);
       },
 
       /**
@@ -75,7 +74,7 @@
       async onClick(index) {
         if (!this.lights[index]) return;
         await this.lights[index].focus(1000, -Math.PI / 6);
-        this.data.changeCode(`device.focus(1000, -Math.PI / 6)`);
+        data.changeCode(`device.focus(1000, -Math.PI / 6)`);
       },
     },
     mounted() {
@@ -93,7 +92,7 @@
         this.lightControllers.push(lightController);
       });
       setTimeout(() => {
-        this.data.changeCode(`client.applyScene('灯光控制')`);
+        data.changeCode(`client.applyScene('灯光控制')`);
       }, 0);
     },
     components: {

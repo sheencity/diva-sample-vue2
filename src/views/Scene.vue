@@ -16,8 +16,8 @@
   import contentBlock from "../components/content-block.vue";
 
   import {
-    DataService
-  } from "../services/data.service";
+    data
+  } from "../global";
   import {
     diva
   } from "../global";
@@ -67,21 +67,20 @@
             index: 9,
           },
         ],
-        data: new DataService()
       }
     },
 
     methods: {
       switchScene(scene) {
         diva.client.applyScene(scene.index).then(() => {
-          this.data.changeCode(`client.applyScene('${scene.title}')`);
+          data.changeCode(`client.applyScene('${scene.title}')`);
         });
       }
     },
 
     async mounted() {
       diva.client.applyScene("半鸟瞰").then(() => {
-        this.data.changeCode(`client.applyScene('半鸟瞰')`);
+        data.changeCode(`client.applyScene('半鸟瞰')`);
       });
     },
     components: {

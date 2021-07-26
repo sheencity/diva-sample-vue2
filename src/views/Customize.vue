@@ -20,9 +20,9 @@
   import {
     diva
   } from "../global";
-  import {
-    DataService
-  } from "../services/data.service";
+   import {
+    data
+  } from "../global";
   import {
     Elevator,
     ElevatorController,
@@ -33,7 +33,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         lifts: [],
         liftModels: [],
         controllers: [],
@@ -130,12 +129,12 @@
       async selectLift($event, i) {
         const value = Number($event.value);
         this.controllers[i].land(`f${value}`);
-        this.data.changeCode(`elevatorController.land('f${value}')`);
+        data.changeCode(`elevatorController.land('f${value}')`);
       }
     },
     async mounted() {
       diva.client.applyScene('电梯演示');
-      this.data.changeCode(`client.applyScene('电梯演示')`);
+      data.changeCode(`client.applyScene('电梯演示')`);
       this.lifts = this.lifts.map((lift, index) => this.addSelected(lift, index));
       for (let i = 0; i < 4; i++) {
         const [model] = await diva.client.getEntitiesByName(

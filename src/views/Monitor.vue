@@ -35,8 +35,8 @@
     diva
   } from '../global'
   import {
-    DataService
-  } from '../services/data.service';
+      data
+    } from '../global'
   import {
     RenderingStyleMode
   } from '@sheencity/diva-sdk';
@@ -46,7 +46,6 @@
 
     data() {
       return {
-        data: new DataService,
         monitors: [],
         monitorEquis: [],
         models: new Map,
@@ -83,7 +82,7 @@
         }
         if (!url) return;
         await monitor.setWebWidget(new URL(url), 500, 280);
-        this.data.changeCode(`model.setWebWidget(new URL('${url}'), 500, 280)`);
+        data.changeCode(`model.setWebWidget(new URL('${url}'), 500, 280)`);
       },
       async refresh(monitorEqui) {
         try {
@@ -95,7 +94,7 @@
       },
       async selectMonitor(name) {
         await (await this.getModelByName(name)).focus(1000, -Math.PI / 6);
-        this.data.changeCode(`model.focus(1000, -Math.PI / 6)`);
+        data.changeCode(`model.focus(1000, -Math.PI / 6)`);
       },
       async getModelByName(name) {
         let m = this.models.get(name);
@@ -128,7 +127,7 @@
         }
       ];
       diva.client.applyScene('监控设备').then(() => {
-        this.data.changeCode(`client.applyScene('监控设备')`);
+        data.changeCode(`client.applyScene('监控设备')`);
       });
       this.models = new Map();
       this.monitorHandlers = [];

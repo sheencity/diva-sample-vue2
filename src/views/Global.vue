@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="switch-item">
-          <switcher :label="'罗盘'" @switch="swit"></switcher>
+          <switcher :label="'罗盘'" v-model="compass" @switch="swit"></switcher>
         </div>
       </div>
     </div>
@@ -60,9 +60,9 @@
   import {
     diva
   } from "../global";
-  import {
-    DataService
-  } from "../services/data.service";
+   import {
+    data
+  } from "../global";
   import {
     MovementMode
   } from "@sheencity/diva-sdk";
@@ -70,7 +70,6 @@
   export default {
     data() {
       return {
-        data: new DataService(),
         compass: false,
         options: [{
             value: "false",
@@ -92,25 +91,24 @@
         diva.client.setMovementMode(
           v.value == "true" ? MovementMode.ThirdPerson : MovementMode.Fly
         );
-        this.data.changeCode(
+        data.changeCode(
           `client.setMovementMode(${
           v.value == "true" ? "MovementMode.ThirdPerson" : "MovementMode.Fly"
         })`
         );
       },
       swit(v) {
-        this.compass = v;
-        diva.client.setCompass(v);
-        this.data.changeCode(`client.setCompass(${v})`);
+        diva.client.setCompass(!this.compass);
+        data.changeCode(`client.setCompass(${!this.compass})`);
       }
     },
     async mounted() {
       await diva.client.applyScene("全局配置");
-      this.compass = this.data.compass;
+      this.compass = data.compass;
       diva.client.setCompass(this.compass);
-      this.data.changeCode(`client.setCompass(${this.compass})`);
+      data.changeCode(`client.setCompass(${this.compass})`);
       setTimeout(() => {
-        this.data.changeCode(`client.applyScene('全局配置')`);
+        data.changeCode(`client.applyScene('全局配置')`);
       }, 0);
     },
     destroyed() {

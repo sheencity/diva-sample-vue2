@@ -37,9 +37,9 @@
   import switcher from "@/components/switcher.vue";
 
 
-  import {
-    DataService
-  } from "../services/data.service";
+   import {
+    data
+  } from "../global";
   import {
     diva
   } from "../global";
@@ -56,7 +56,6 @@
 
     data() {
       return {
-        data: new DataService,
         models: [],
         pipeModels: [],
         selectedFloor: {
@@ -158,7 +157,7 @@
           if (val) group.disassemble(options);
           else group.assemble();
 
-          this.data.changeCode(
+          data.changeCode(
             `const group = client.getEntityGroupByGroupPath('场景模型/主楼拆分');`,
             val ?
             "client.disassemble(group, { spacing: 300, eachHeight: 290, duration: 5 })" :
@@ -232,7 +231,7 @@
         await this.setVisibility(modelToHide, false);
         await this.setVisibility(pipeToHide, false);
         await this.setVisibility(pipeToShow, this.pipe ? true : false);
-        this.data.changeCode(
+        data.changeCode(
           `client.setVisibility(${[
           ...modelToFocus.map((model) => `'${model.id}'`),
         ]}, true)`
@@ -242,13 +241,13 @@
       // 聚焦方法
       async focus(model) {
         await model.focus(5000, -Math.PI / 6);
-        this.data.changeCode(`model.focus(5000, -Math.PI / 6)`);
+        data.changeCode(`model.focus(5000, -Math.PI / 6)`);
       },
       // 显示隐藏方法
       setVisibility(models, visible, leave) {
         models.map((model) => model.setVisibility(visible));
         if (!leave) {
-          this.data.changeCode(
+          data.changeCode(
             `client.setVisibility(${[
               ...models.map((model) => `'${model.id}'`),
             ]}, ${visible})`
@@ -287,7 +286,7 @@
 
     async mounted() {
       await diva.client.applyScene("楼层展示");
-      this.data.changeCode(`client.applyScene('楼层展示')`);
+      data.changeCode(`client.applyScene('楼层展示')`);
       this.options.forEach(async (option) => {
         const model = await this.getModel(option.value);
         const pipeModel = await this.getModel(option.pipeLineName);
