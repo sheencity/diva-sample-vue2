@@ -17,14 +17,14 @@
         <div class="drop-item">
           <span>聚焦楼层</span>
           <div>
-            <drop-down :options="options" :initvalue="initial" @select="selectf" :disabled="!gradation"></drop-down>
+            <drop-down class="drop-down" :options="options" :initvalue="initial" @select="selectf" :disabled="!gradation"></drop-down>
             <span style="margin-left: 4px;">层</span>
           </div>
         </div>
       </div>
       <div class="switch-block">
         <div class="switch-item">
-          <switcher v-model="pipe" :label="'显示管线'" @switch="pipef" :disabled="!gradation"></switcher>
+          <switcher class="switcher" v-model="pipe" :label="'显示管线'" @switch="pipef" :disabled="!gradation"></switcher>
         </div>
       </div>
     </div>
@@ -329,7 +329,7 @@
       .switch-item {
         width: 100%;
 
-        app-switcher {
+        .switcher {
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -357,7 +357,7 @@
           color: #fff;
         }
 
-        app-dropdown {
+        .drop-down {
           width: 57px;
         }
       }

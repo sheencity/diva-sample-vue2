@@ -93,18 +93,13 @@
 
 <style lang="scss" scoped>
   .win {
-    width: 100%;
-    height: 100%;
-
     main {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      z-index: 2;
+      width: 100%;
+      min-height: 100%;
       pointer-events: none;
-      /* background: url('../assets/bg.png') no-repeat;
-     background-size: 100% 100%; */
+
       background: linear-gradient(0deg,
           rgba(0, 0, 0, 0) 0%,
           rgba(0, 0, 0, 0.4) 100%) top/auto 170px no-repeat,
@@ -113,14 +108,11 @@
 
       header {
         width: 100%;
+        padding-top: 4px;
       }
 
       article {
-        position: absolute;
-        top: 170px;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        margin-top: 22px;
         display: flex;
         justify-content: space-between;
 
@@ -135,7 +127,7 @@
         .codeView {
           position: absolute;
           left: 60px;
-          top: 763px;
+          top: 933px;
           width: 1087px;
           height: 92px;
           box-sizing: border-box;
@@ -155,5 +147,6 @@
     left: -1px;
     bottom: -1px;
     right: -1px;
+    z-index: 1;
   }
 </style>

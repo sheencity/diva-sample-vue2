@@ -15,14 +15,14 @@
 <script>
   import switcher from "./switcher.vue";
   export default {
-    data(){
-      return{
+    data() {
+      return {
         exampleCode: false
       }
     },
-    watch:{
-      exampleCode: function(){
-        this.$emit('showCode',this.exampleCode);
+    watch: {
+      exampleCode: function () {
+        this.$emit('showCode', this.exampleCode);
       }
     },
     components: {
@@ -39,7 +39,7 @@
     align-items: center;
     height: 94px;
     box-sizing: border-box;
-    margin: 54px 60px 0;
+    margin: 50px 60px 0;
 
     .title {
       position: relative;

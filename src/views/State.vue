@@ -33,6 +33,7 @@
           value: RenderingStyleMode.Default,
           placeholder: "默认"
         },
+        selected: null
       }
     },
     created() {
@@ -125,7 +126,6 @@
       }
     },
     async mounted() {
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       diva.client.applyScene("状态演示").then(() => {
         data.changeCode(`client.applyScene('状态演示')`);
       });

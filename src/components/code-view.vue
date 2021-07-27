@@ -1,7 +1,5 @@
 <template>
-  <div class="code-view">
-    <p>{{code}}</p>
-  </div>
+    <p class="code">{{code}}</p>
 </template>
 
 <script>
@@ -23,8 +21,7 @@ import {
 </script>
 
 <style lang="scss" >
-.code-view{
- p {
+ .code {
     height: 100%;
     margin: 0;
     margin-right: 6px;
@@ -52,7 +49,6 @@ import {
     background-clip: padding-box;
     border: 4px solid transparent;
     border-radius: 7px;
-}
 }
  
 </style>
