@@ -6,23 +6,28 @@
     </div>
     <div class="info">
       <div class="exampleCode">
+        <switcher class="switcher" v-model="exampleCode" label="显示示例代码"></switcher>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import switcher from "./switcher.vue";
   export default {
-    data() {
-      return {
-
+    data(){
+      return{
+        exampleCode: false
       }
     },
-    mounted() {
-
+    watch:{
+      exampleCode: function(){
+        this.$emit('showCode',this.exampleCode);
+      }
     },
-    props: [],
-    methods: {}
+    components: {
+      switcher,
+    }
   }
 </script>
 
@@ -75,7 +80,7 @@
         line-height: 43px;
 
         // margin-right: 24px;
-        app-switcher {
+        .switcher {
           width: 117px;
           pointer-events: all;
         }

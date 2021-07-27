@@ -16,12 +16,8 @@
   import contentBlock from "@/components/content-block.vue";
   import switcher from "@/components/switcher.vue";
   import {
-    diva
+    diva,data
   } from "../global";
-   import {
-    data
-  } from "../global";
-
   import {
     DeviceController
   } from "@sheencity/diva-sdk";

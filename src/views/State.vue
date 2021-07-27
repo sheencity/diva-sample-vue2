@@ -17,9 +17,7 @@
   import contentBlock from "../components/content-block.vue";
   import dropDown from "../components/dropdown.vue";
   import {
-    diva
-  } from "../global";
-  import {
+    diva,
     data
   } from "../global";
   import {
@@ -127,6 +125,7 @@
       }
     },
     async mounted() {
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       diva.client.applyScene("状态演示").then(() => {
         data.changeCode(`client.applyScene('状态演示')`);
       });

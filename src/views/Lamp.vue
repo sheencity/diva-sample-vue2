@@ -14,11 +14,9 @@
 <script>
   import contentBlock from "../components/content-block.vue";
   import switcher from "../components/switcher.vue";
+
   import {
-    diva
-  } from "../global";
-  import {
-      data
+      data,diva
     } from "../global";
   import {
     DeviceController

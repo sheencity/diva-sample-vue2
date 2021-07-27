@@ -37,10 +37,8 @@
   import switcher from "@/components/switcher.vue";
 
 
-   import {
-    data
-  } from "../global";
   import {
+    data,
     diva
   } from "../global";
   import {
@@ -63,7 +61,7 @@
           value: "一层-1_1",
         },
         pipe: false,
-        group$: new Observable,
+        group$: new Observable(),
         explode: false,
         gradation: false,
         options: [],

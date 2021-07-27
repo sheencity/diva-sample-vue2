@@ -58,9 +58,7 @@
   import dropDown from "../components/dropdown.vue";
   import switcher from "../components/switcher.vue";
   import {
-    diva
-  } from "../global";
-   import {
+    diva,
     data
   } from "../global";
   import {

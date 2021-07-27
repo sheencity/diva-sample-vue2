@@ -16,9 +16,7 @@
   import contentBlock from "../components/content-block.vue";
 
   import {
-    data
-  } from "../global";
-  import {
+    data,
     diva
   } from "../global";
 

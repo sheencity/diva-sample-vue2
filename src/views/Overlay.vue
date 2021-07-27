@@ -133,11 +133,10 @@
   import contentBlock from "../components/content-block.vue";
   import dropDown from "../components/dropdown.vue";
   import inputNumber from "../components/input-number.vue"
+
   import {
+    data,
     diva
-  } from "../global";
-  import {
-    data
   } from "../global";
   import {
     LocalStorageService

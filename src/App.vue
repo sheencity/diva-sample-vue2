@@ -3,7 +3,7 @@
     <div id="backendContainer" class="backend-container"></div>
     <main>
       <header>
-        <s-header></s-header>
+        <s-header ref="header" @showCode="showCode"></s-header>
       </header>
       <article>
         <nav>
@@ -14,7 +14,9 @@
             <router-view v-if="isRouter" />
           </div>
         </div>
-        <!-- <div class="codeView"></div> -->
+        <div class="codeView" v-if="exampleCode">
+          <codeView></codeView>
+        </div>
       </article>
     </main>
   </div>
@@ -23,6 +25,7 @@
 <script>
   import sHeader from "./components/header.vue";
   import sNav from "./components/nav.vue";
+  import codeView from "./components/code-view.vue";
   import {
     diva
   } from './global';
@@ -37,7 +40,8 @@
       return {
         backendContainer: null,
         changeResolution: new Subject(),
-        isRouter: false
+        isRouter: false,
+        exampleCode: false
       }
     },
 
@@ -64,6 +68,9 @@
       this.changeResolution.unsubscribe();
     },
     methods: {
+      showCode(exampleCode) {
+        this.exampleCode = exampleCode;
+      },
       updateResolution() {
         const width = this.backendContainer.clientWidth;
         const height = this.backendContainer.clientHeight;
@@ -76,7 +83,8 @@
 
     components: {
       sHeader,
-      sNav
+      sNav,
+      codeView
     },
 
   }

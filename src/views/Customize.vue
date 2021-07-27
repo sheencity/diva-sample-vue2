@@ -18,11 +18,9 @@
   import contentBlock from "@/components/content-block.vue";
   import dropDown from "@/components/dropdown.vue";
   import {
-    diva
+    diva,data
   } from "../global";
-   import {
-    data
-  } from "../global";
+
   import {
     Elevator,
     ElevatorController,

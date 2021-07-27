@@ -40,11 +40,10 @@
   import contentBlock from "@/components/content-block.vue";
 
   import {
-    data
-  } from "../global";
-  import {
+    data,
     diva
   } from "../global";
+
   import {
     WeatherName
   } from "@sheencity/diva-sdk";
@@ -171,7 +170,7 @@
       diva.client.setDate(new Date());
       diva.client.setTime(new Date());
       diva.client.applyScene("日期时间").then(() => {
-       data.changeCode(`client.applyScene('日期时间')`);
+        data.changeCode(`client.applyScene('日期时间')`);
       });
     },
     destroyed() {
