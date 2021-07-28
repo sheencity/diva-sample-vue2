@@ -1,5 +1,5 @@
 <template>
-    <p class="code">{{code}}</p>
+  <p class="code">{{code}}</p>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ import {
   }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
  .code {
     height: 100%;
     margin: 0;

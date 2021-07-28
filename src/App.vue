@@ -1,7 +1,7 @@
 <template>
   <div class="win">
     <div id="backendContainer" class="backend-container"></div>
-    <main>
+    <main :class="{'includeCodeArea': exampleCode}">
       <header>
         <s-header ref="header" @showCode="showCode"></s-header>
       </header>
@@ -14,7 +14,7 @@
             <router-view v-if="isRouter" />
           </div>
         </div>
-        <div class="codeView" v-if="exampleCode">
+        <div class="codeView" v-show="exampleCode">
           <codeView></codeView>
         </div>
       </article>
@@ -91,7 +91,7 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   .win {
     main {
       position: absolute;
@@ -133,10 +133,13 @@
           box-sizing: border-box;
           padding: 20px;
           padding-right: 0;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(126, 92, 92, 0.1);
           backdrop-filter: blur(8px);
         }
       }
+    }
+    main.includeCodeArea {
+     min-height: 1025px;
     }
   }
 
