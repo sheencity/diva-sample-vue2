@@ -1,13 +1,11 @@
 <template>
   <div class="scene-main">
     <content-block caption="场景切换"></content-block>
-    <div v-for="scene in scenes" :key="scene.index">
-      <div class="content" @click="switchScene(scene)">
+    <div v-for="scene in scenes" :key="scene.index" class="content" @click="switchScene(scene)">
         <div class="title">{{scene.title}}</div>
         <div class="icon">
           <img src="../assets/icon/scene/scene.png" />
         </div>
-      </div>
     </div>
   </div>
 </template>

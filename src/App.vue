@@ -9,10 +9,8 @@
         <nav>
           <s-nav></s-nav>
         </nav>
-        <div class="content">
-          <div>
+        <div class="router">
             <router-view v-if="isRouter" />
-          </div>
         </div>
         <div class="codeView" v-show="exampleCode">
           <codeView></codeView>
@@ -120,7 +118,7 @@
           margin-left: 60px;
         }
 
-        .content {
+        .router {
           margin-right: 60px;
         }
 

@@ -580,7 +580,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
   .overlay-main {
     .content-block-main {
       width: 282px;
