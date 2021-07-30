@@ -1,4 +1,4 @@
-<h1 align="center">DIVA Sample</h1>
+<h1 align="center">DIVA Sample vue2</h1>
 <div align="center">
   <strong>Digital Intelligence Visualization API</strong>
 </div>
@@ -9,7 +9,7 @@
 ## 下载
 
 ```shell
-git clone https://github.com/sheencity/diva-sample-vue
+git clone https://github.com/sheencity/diva-sample-vue2.git
 ```
 
 ## 安装依赖
@@ -35,4 +35,4 @@ npm run serve
 npm run build
 ```
 
-打包文件将存储在 `dist/` 目录中，可以通过添加 `--prod` 标记打包生产环境文件。
+打包文件将存储在 `dist/` 目录中，可以通过添加 `--mode` 标记打包生产环境文件。
