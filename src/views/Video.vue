@@ -83,6 +83,10 @@
       })
     },
 
+    destroyed() {
+      diva.client.stopCameraTrack();
+    },
+
     components: {
       contentBlock,
     },

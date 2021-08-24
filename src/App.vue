@@ -100,7 +100,7 @@
 
       background: linear-gradient(0deg,
           rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0.4) 100%) top/auto 170px no-repeat,
+          rgba(0, 0, 0, 0.4) 100%) top/100% 170px no-repeat,
         linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%) left/300px 100% no-repeat,
         linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%) right/420px 100% no-repeat;
 
