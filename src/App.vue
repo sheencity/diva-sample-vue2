@@ -37,7 +37,6 @@
     data() {
       return {
         backendContainer: null,
-        changeResolution: new Subject(),
         isRouter: false,
         exampleCode: false
       }
@@ -48,34 +47,13 @@
       if (this.backendContainer) {
         //初始话 webRtc 链接
         await diva.init(this.backendContainer);
-        //  设置服务后端分辨率
-        this.updateResolution();
-        // 监听显示区域的改变 
-        const resizeObserver = new ResizeObserver(() => {
-          this.changeResolution.next(true);
-        });
-        resizeObserver.observe(this.backendContainer);
-        this.changeResolution
-          .pipe(debounceTime(200))
-          .subscribe(this.updateResolution);
         this.isRouter = true;
       }
     },
 
-    destroyed() {
-      this.changeResolution.unsubscribe();
-    },
     methods: {
       showCode(exampleCode) {
         this.exampleCode = exampleCode;
-      },
-      updateResolution() {
-        const width = this.backendContainer.clientWidth;
-        const height = this.backendContainer.clientHeight;
-        diva.client.setResolution({
-          width,
-          height,
-        });
       },
     },
 
