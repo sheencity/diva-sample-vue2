@@ -10,7 +10,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@sheencity/diva-sdk": "^0.2.2-alpha.1",
+    "@fooloomanzoo/color-picker": "^3.0.2",
+    "@sheencity/diva-sdk": "^0.2.2-beta.0",
     "core-js": "^3.6.5",
     "jsonrpc-lite": "^2.2.0",
     "rxjs": "~6.6.0",
