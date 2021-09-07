@@ -120,24 +120,18 @@
           </drop-down>
         </div>
       </div>
-      <div class="input-item">
+      <div class="btn-item">
         <span>颜色</span>
-        <overlay-color-picker
-          :style="{'color': color}"
-          class="customColorPicker"
-          format="hex"
-          default="#000000"
-          horizontal-align="right"
-          vertical-align="top"
-          :without-alpha="true"
-          :alpha-mode="false"
-          :no-overlap="true"
-          :no-tip="true"
-          :auto-confirm="true"
-          :value="color"
-          :no-cancel-on-outside-click="false"
-          @input-picker-closed="color = $event.target.value"
-        ></overlay-color-picker>
+        <button
+          @click="toggleColorPicker"
+          :style="{'background': color, 'borderColor': color}"
+        ></button>
+        <sketch
+          v-show="colorShow"
+          v-model="color"
+          @input="color = $event.hex"
+          @click.native="prevent($event)"
+        ></sketch>
       </div>
       <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
         <span>旋转</span>
@@ -195,24 +189,18 @@
           v-model="border"
         ></input-number>
       </div>
-      <div class="input-item" v-if="selectedType.value === 'Marker'">
+      <div class="btn-item" v-if="selectedType.value === 'Marker'">
         <span>边框颜色</span>
-        <overlay-color-picker
-          :style="{'color': borderColor}"
-          class="customColorPicker"
-          format="hex"
-          default="#000000"
-          horizontal-align="right"
-          vertical-align="top"
-          :without-alpha="true"
-          :alpha-mode="false"
-          :no-overlap="true"
-          :no-tip="true"
-          :auto-confirm="true"
-          :value="borderColor"
-          :no-cancel-on-outside-click="false"
-          @input-picker-closed="borderColor = $event.target.value"
-        ></overlay-color-picker>
+        <button
+          @click="toggleBorColPicker"
+          :style="{'background': borderColor, 'borderColor': borderColor}"
+        ></button>
+        <sketch
+          v-show="borderColShow"
+          v-model="borderColor"
+          @input="borderColor = $event.hex"
+          @click.native="prevent($event)"
+        ></sketch>
       </div>
       <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
         <span>自发光强度</span>
@@ -272,7 +260,7 @@
 import contentBlock from "../components/content-block.vue";
 import dropDown from "../components/dropdown.vue";
 import inputNumber from "../components/input-number.vue";
-import OverlayColorPicker from "@fooloomanzoo/color-picker/overlay-color-picker";
+import { Sketch } from "vue-color";
 
 import { data, diva } from "../global";
 
@@ -347,6 +335,8 @@ export default {
         value: "poi",
         placeholder: "POI",
       },
+      colorShow: false,
+      borderColShow: false,
     };
   },
   created() {
@@ -470,8 +460,33 @@ export default {
         placeholder: "圆形区域轮廓03",
       },
     ];
+
+    document.addEventListener('click', ($event) => {
+      this.colorShow = false;
+      this.borderColShow = false;
+    });
   },
   methods: {
+    toggleColorPicker($event) {
+      this.prevent($event);
+      this.colorShow = !this.colorShow;
+      this.borderColShow = false;
+    },
+
+    toggleBorColPicker($event) {
+      this.prevent($event);
+      this.borderColShow = !this.borderColShow;
+      this.colorShow = false;
+    },
+
+    /**
+     * 阻止默认点击事件
+     */
+    prevent($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+    },
+
     /**
      * 创建覆盖物
      */
@@ -715,11 +730,14 @@ export default {
       entity.setVisibility(true);
     });
   },
+  destroyed() {
+    document.removeEventListener('click', ($event) => {});
+  },
   components: {
     contentBlock,
     dropDown,
     inputNumber,
-    OverlayColorPicker,
+    Sketch,
   },
 };
 </script>
@@ -762,7 +780,6 @@ export default {
       height: 24px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
 
       span {
         line-height: 24px;
@@ -873,6 +890,7 @@ export default {
       display: flex;
       margin-top: 12px;
       justify-content: space-between;
+      position: relative;
 
       span {
         line-height: 24px;
@@ -957,31 +975,15 @@ export default {
     border-radius: 7px;
   }
 
-  .customColorPicker {
-    --input-color: #222;
-    --input-background: #fff;
-    --input-picker-color: #000;
-    --input-picker-background: #dddddd;
-    --input-picker-border-radius: 10px;
-  }
-
-  overlay-color-picker {
-    width: 57px;
-    height: 26px;
-    border-radius: 2px;
-    display: inline-block;
-    overflow: hidden;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background-color: currentcolor;
-      pointer-events: none;
+  .vc-sketch {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    z-index: 99;
+    .vc-input__label {
+      color: #222 !important;
+      font-weight: unset !important;
+      line-height: unset !important;
     }
   }
 }
