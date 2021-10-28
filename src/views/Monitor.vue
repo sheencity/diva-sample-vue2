@@ -81,8 +81,15 @@
           monitor = await this.getModelByName(monitor);
         }
         if (!url) return;
-        await monitor.setWebWidget(new URL(url), 500, 280);
-        data.changeCode(`model.setWebWidget(new URL('${url}'), 500, 280)`);
+        await monitor.setWebWidget(new URL(url), {
+          width: 500,
+          height: 280,
+          mouseInput: true,
+          keyboardInput: true,
+        });
+        data.changeCode(
+          `model.setWebWidget(new URL('${url}'), { width: 500, height: 280, mouseInput: true, keyboardInput: true })`
+        );
       },
       async refresh(monitorEqui) {
         try {
