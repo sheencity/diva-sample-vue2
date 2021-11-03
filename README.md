@@ -24,10 +24,10 @@ npm install
 ## 运行项目
 
 ```shell
-npm run serve
+npm start
 ```
 
-项目将运行在 `http://localhost:8081/`。
+项目将运行在 `http://localhost:4200/`。
 
 ## 打包项目
 

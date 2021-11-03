@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        port: 8081, // 端口
+        port: 4200, // 端口
     },
     publicPath: './'
 }
