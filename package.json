@@ -1,8 +1,9 @@
 {
   "name": "diva-sample-vue2",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
+    "start": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:prod": "vue-cli-service build --mode production",
