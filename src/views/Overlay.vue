@@ -17,7 +17,7 @@
       </div>
       <div class="btn-item">
         <span>坐标拾取</span>
-        <button @click="pickup">拾取</button>
+        <button @click="pickup" @mouseup.stop="mouseupStop">拾取</button>
       </div>
       <div class="input-item">
         <span>坐标</span>
@@ -60,7 +60,7 @@
       <div
         class="input-item"
         :style="{ height: selectedType.value === 'poi' ? '24px' : '48px' }"
-        v-if="selectedType.value !== 'emissiveOverlay'"
+        v-if="selectedType.value !== 'emissive'"
       >
         <span>内容</span>
         <textarea
@@ -90,7 +90,7 @@
       <div
         class="drop-item"
         style="margin-top: 12px"
-        v-if="selectedType.value === 'emissiveOverlay'"
+        v-if="selectedType.value === 'emissive'"
       >
         <span>类型</span>
         <div>
@@ -133,7 +133,7 @@
           @click.native="prevent($event)"
         ></sketch>
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>旋转</span>
         <div class="coordinate-items">
           <div class="coordinate-item">
@@ -171,7 +171,7 @@
           v-model="scale"
         ></input-number>
       </div>
-      <div class="input-item" v-if="selectedType.value !== 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value !== 'emissive'">
         <span>不透明度</span>
         <input-number
           :key="2"
@@ -202,11 +202,11 @@
           @click.native="prevent($event)"
         ></sketch>
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>自发光强度</span>
         <input-number :key="4" :min="0" v-model="emission"></input-number>
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>速度</span>
         <input-number :key="5" :min="0" v-model="speed"></input-number>
       </div>
@@ -242,7 +242,7 @@
                 overlay.type === "poi"
                   ? "POI"
                   : overlay.type === "Marker"
-                  ? "标签"
+                  ? "Marker"
                   : "Emissive"
               }}</span>
               <div class="overlay-delete" @click="del($event, overlay)">
@@ -304,7 +304,7 @@ export default {
       corrdinateZ: 0.0,
       title: "",
       content: "",
-      color: "#000000",
+      color: "#ff0000",
       rotationX: 0,
       rotationY: 0,
       rotationZ: 0,
@@ -351,7 +351,7 @@ export default {
       },
       {
         value: OverlayType.Emissive,
-        placeholder: "Effect",
+        placeholder: "Emissive",
       },
     ];
     this.alignOptions = [
@@ -661,7 +661,7 @@ export default {
       this.rotationZ = 0;
       this.title = "";
       this.content = "";
-      this.color = "#000000";
+      this.color = "#ff0000";
       this.scale = 1.0;
       this.opacity = 1.0;
       this.border = 0.0;
@@ -694,6 +694,8 @@ export default {
       });
       document.body.style.cursor = "crosshair";
     },
+
+    mouseupStop: () => {},
 
     /**
      * 阻止事件冒泡
