@@ -13,7 +13,7 @@
       </div>
       <div class="btn-item">
         <span>坐标拾取</span>
-        <button @click="pickup">拾取</button>
+        <button @click="pickup" @mouseup.stop="mouseupStop">拾取</button>
       </div>
       <div class="input-item">
         <span>坐标</span>
@@ -34,7 +34,7 @@
         <input @keydown="onKeyDown($event)" type="text" v-model="title" placeholder="请输入文字" />
       </div>
       <div class="input-item" :style="{height: (selectedType.value === 'poi' ? '24px' : '48px')}"
-        v-if="selectedType.value !== 'emissiveOverlay'">
+        v-if="selectedType.value !== 'emissive'">
         <span>内容</span>
         <textarea cols="4" @keydown="onKeyDown($event)" v-model="content" placeholder="请输入文字"></textarea>
       </div>
@@ -46,7 +46,7 @@
           </drop-down>
         </div>
       </div>
-      <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'emissive'">
         <span>类型</span>
         <div>
           <drop-down :key="3" :options="emissiveOptions" :initvalue="emissiveInitial" @select="setSelectedEmissive"
@@ -65,7 +65,7 @@
         <span>颜色</span>
         <input v-model="color" type="color" />
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>旋转</span>
         <div class="coordinate-items">
           <div class="coordinate-item">
@@ -83,7 +83,7 @@
         <span>缩放</span>
         <input-number :key="1" :min="0" :max="100" v-model="scale"></input-number>
       </div>
-      <div class="input-item" v-if="selectedType.value !== 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value !== 'emissive'">
         <span>不透明度</span>
         <input-number :key="2" :min="0" :max="100" v-model="opacity"></input-number>
       </div>
@@ -95,11 +95,11 @@
         <span>边框颜色</span>
         <input v-model="borderColor" type="color" />
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>自发光强度</span>
         <input-number :key="4" :min="0" v-model="emission"></input-number>
       </div>
-      <div class="input-item" v-if="selectedType.value === 'emissiveOverlay'">
+      <div class="input-item" v-if="selectedType.value === 'emissive'">
         <span>速度</span>
         <input-number :key="5" :min="0" v-model="speed"></input-number>
       </div>
@@ -117,7 +117,7 @@
           <div class="overlay-item" :class="{'selected': selectedId === overlay.id}">
             <span>{{overlay.type === 'poi' ? overlay.content : overlay.type === 'Marker' ? overlay.title : overlay.icon}}</span>
             <div class="overlay-info">
-              <span>{{overlay.type === 'poi' ? 'POI' : overlay.type === 'Marker' ? '标签' : 'Emissive'}}</span>
+              <span>{{overlay.type === 'poi' ? 'POI' : overlay.type === 'Marker' ? 'Marker' : 'Emissive'}}</span>
               <div class="overlay-delete" @click="del($event, overlay)">
                 <img src="../assets/icon/overlay/delete.png" />
               </div>
@@ -191,7 +191,7 @@
         corrdinateZ: 0.0,
         title: '',
         content: '',
-        color: '#000000',
+        color: '#ff0000',
         rotationX: 0,
         rotationY: 0,
         rotationZ: 0,
@@ -235,7 +235,7 @@
         },
         {
           value: OverlayType.Emissive,
-          placeholder: 'Effect'
+          placeholder: 'Emissive'
         },
       ];
       this.alignOptions = [{
@@ -518,7 +518,7 @@
         this.rotationZ = 0;
         this.title = '';
         this.content = '';
-        this.color = '#000000';
+        this.color = '#ff0000';
         this.scale = 1.0;
         this.opacity = 1.0;
         this.border = 0.0;
@@ -551,6 +551,8 @@
         });
         document.body.style.cursor = 'crosshair';
       },
+
+      mouseupStop: () => {},
 
       /**
        * 阻止事件冒泡

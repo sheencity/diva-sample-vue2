@@ -5,7 +5,7 @@ import {
 export const OverlayType = {
     POI: 'poi',
     Marker: 'Marker',
-    Emissive: 'emissiveOverlay',
+    Emissive: 'emissive',
 }
 
 export const POIIcon = {
