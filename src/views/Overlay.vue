@@ -133,6 +133,7 @@
   import {
     Emissive,
     Marker,
+    Model,
     POI,
     POIIcon
   } from '@sheencity/diva-sdk';
@@ -478,10 +479,10 @@
         $event.stopPropagation();
         this.store.deleteOverlay(overlay);
         this.overlays = this.store.getAllOverlays();
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
-        await entity.destroy();
-        await entity.detach();
-        data.changeCode(`entity.destroy()`);
+        entity.setClient(null);
+        data.changeCode(`entity.setClient(null)`);
       },
 
       /**
@@ -521,9 +522,10 @@
        */
       async selectOverlay(overlay) {
         this.selectedId = overlay.id;
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
-        entity.focus(1000, -Math.PI / 6);
-        data.changeCode(`model.focus(1000, -Math.PI / 6)`);
+        entity.focus(1000, - Math.PI / 6);
+        data.changeCode(`model.focus(1000, - Math.PI / 6)`);
       },
       /**
        * 拾取世界坐标
@@ -572,6 +574,7 @@
       await diva.client.applyScene('覆盖物');
       data.changeCode(`client.applyScene('覆盖物')`);
       this.overlays.map(async (overlay) => {
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
         entity.setVisibility(true);
       });
