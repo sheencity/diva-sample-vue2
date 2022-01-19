@@ -1,6 +1,6 @@
 {
   "name": "diva-sample-vue2",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "npm run serve",
@@ -11,7 +11,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@sheencity/diva-sdk": "^0.3.1",
+    "@sheencity/diva-sdk": "^1.0.0-alpha.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.5.3"

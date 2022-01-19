@@ -12,14 +12,9 @@
 
 <script>
   import contentBlock from "../components/content-block.vue";
-
-  import {
-    data,
-    diva
-  } from "../global";
+  import { data, diva } from "../global";
 
   export default {
-
     data() {
       return {
         scenes: [{
@@ -74,8 +69,8 @@
       }
     },
 
-    async mounted() {
-      diva.client.applyScene("半鸟瞰").then(() => {
+    mounted() {
+      diva.client?.applyScene("半鸟瞰").then(() => {
         data.changeCode(`client.applyScene('半鸟瞰')`);
       });
     },
