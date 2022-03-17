@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import { WebRtcAdapter } from '@sheencity/diva-sdk-adapter';
+  import { WebRtcAdapter } from '@sheencity/diva-sdk-core';
   import { Subject } from 'rxjs';
   import { debounceTime } from 'rxjs/operators';
   import sHeader from './components/header.vue';
