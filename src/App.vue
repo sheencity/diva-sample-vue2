@@ -10,7 +10,7 @@
           <s-nav></s-nav>
         </nav>
         <div class="router">
-            <router-view v-if="isRouter" />
+            <router-view v-if="isDivaInit"></router-view>
         </div>
         <div class="codeView" v-show="exampleCode">
           <codeView></codeView>
@@ -21,33 +21,33 @@
 </template>
 
 <script>
-  import sHeader from "./components/header.vue";
-  import sNav from "./components/nav.vue";
-  import codeView from "./components/code-view.vue";
-  import {
-    diva
-  } from './global';
-  import {
-    Subject
-  } from 'rxjs';
-  import {
-    debounceTime
-  } from "rxjs/operators";
+  import { WebRtcAdapter } from '@sheencity/diva-sdk-core';
+  import { Subject } from 'rxjs';
+  import { debounceTime } from 'rxjs/operators';
+  import sHeader from './components/header.vue';
+  import sNav from './components/nav.vue';
+  import codeView from './components/code-view.vue';
+  import { diva } from './global';
+  
   export default {
     data() {
       return {
         backendContainer: null,
         changeResolution: new Subject(),
-        isRouter: false,
+        isDivaInit: false,
         exampleCode: false
       }
     },
-
     async mounted() {
       this.backendContainer = document.getElementById("backendContainer");
       if (this.backendContainer) {
         //初始话 webRtc 链接
         await diva.init(this.backendContainer);
+        if (!diva.client) {
+          new Error('diva client is not initialized');
+          return;
+        }
+        this.isDivaInit = true;
         //  设置服务后端分辨率
         this.updateResolution();
         // 监听显示区域的改变 
@@ -58,10 +58,8 @@
         this.changeResolution
           .pipe(debounceTime(200))
           .subscribe(this.updateResolution);
-        this.isRouter = true;
       }
     },
-
     destroyed() {
       this.changeResolution.unsubscribe();
     },
@@ -70,24 +68,20 @@
         this.exampleCode = exampleCode;
       },
       updateResolution() {
-        const width = this.backendContainer.clientWidth;
-        const height = this.backendContainer.clientHeight;
-        diva.client.setResolution({
-          width,
-          height,
-        });
+        if (diva.adapter instanceof WebRtcAdapter) {
+          const width = this.backendContainer.clientWidth;
+          const height = this.backendContainer.clientHeight;
+          diva.client.setResolution({ width, height });
+        }
       },
     },
-
     components: {
       sHeader,
       sNav,
       codeView
     },
-
   }
 </script>
-
 
 <style lang="scss">
   .win {

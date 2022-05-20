@@ -29,52 +29,65 @@
 </template>
 
 <script>
-  import contentBlock from '@/components/content-block.vue'
-
-  import {
-    diva
-  } from '../global'
-  import {
-      data
-    } from '../global'
-  import {
-    RenderingStyleMode
-  } from '@sheencity/diva-sdk';
-
+  import { RenderingStyleMode } from '@sheencity/diva-sdk';
+  import contentBlock from '../components/content-block.vue';
+  import { data, diva } from '../global';
 
   export default {
-
     data() {
       return {
-        monitors: [],
-        monitorEquis: [],
-        models: new Map,
+        monitors: [
+          {
+            title: '测试设备01',
+            url: 'rtmp://xxxxxxxxxxxxxxxxxx',
+          },
+          {
+            title: '测试设备02',
+            url: 'rtmp://xxxxxxxxxxxxxxxxxx',
+          }
+        ],
+        monitorEquis: [
+          {
+            title: '测试设备03',
+            url: 'https://www.sheencity.com',
+          },
+          {
+            title: '测试设备04',
+            url: 'https://www.sheencity.com',
+          }
+        ],
+        models: new Map(),
         monitorHandlers: [],
+        // 存在弹窗的模型
+        widgetModel: null,
       }
     },
-    created() {
-      this.monitors = [{
-          title: '测试设备01',
-          url: 'rtmp://xxxxxxxxxxxxxxxxxx',
-        },
-        {
-          title: '测试设备02',
-          url: 'rtmp://xxxxxxxxxxxxxxxxxx',
-        }
-      ];
-      this.monitorEquis = [{
-          title: '测试设备03',
-          url: 'https://www.sheencity.com',
-        },
-        {
-          title: '测试设备04',
-          url: 'https://www.sheencity.com',
-        }
-      ];
+    async mounted() {
+      const totalMonitors = this.monitors.concat(this.monitorEquis);
+      diva.client.applyScene('监控设备').then(() => {
+        data.changeCode(`client.applyScene('监控设备')`);
+      });
+      for (let i = 0; i < totalMonitors.length; i++) {
+        const model = await this.getModelByName(totalMonitors[i].title);
+        const handle = (model) => {
+          const url = totalMonitors.find((m) => m.title === model.name).url;
+          this.setWidget(model, url);
+        };
+        model.setRenderingStyleMode(RenderingStyleMode.Default);
+        model.addEventListener('click', () => handle(model));
+        this.monitorHandlers.push(handle);
+      }
+    },
+    async destroyed() {
+      await this.removeWidget();
+      this.monitors.forEach(async (m, i) => {
+        const model = await this.getModelByName(m.title);
+        model.removeEventListener('click', this.monitorHandlers[i]);
+      });
     },
     methods: {
-      async removeWidget(name) {
-        await (await this.getModelByName(name)).setWebWidget(null);
+      async removeWidget() {
+        if (this.widgetModel) await this.widgetModel.setWebWidget(null);
       },
       async setWidget(monitor, url) {
         if (typeof monitor === 'string') {
@@ -86,14 +99,16 @@
           height: 280,
           mouseInput: true,
           keyboardInput: true,
+          dismissable: true,
         });
+        this.widgetModel = monitor;
         data.changeCode(
           `model.setWebWidget(new URL('${url}'), { width: 500, height: 280, mouseInput: true, keyboardInput: true })`
         );
       },
       async refresh(monitorEqui) {
         try {
-          await this.removeWidget(monitorEqui.title);
+          await this.removeWidget();
         } catch {
           console.log('当前模型无可清除的 web 组件');
         }
@@ -104,58 +119,16 @@
         data.changeCode(`model.focus(1000, -Math.PI / 6)`);
       },
       async getModelByName(name) {
-        let m = this.models.get(name);
-        if (!m) {
-          m = (await diva.client.getEntitiesByName(name))[0];
-          this.models.set(name, m);
+        let model = this.models.get(name);
+        if (!model) {
+          model = (await diva.client.getEntitiesByName(name))[0];
+          this.models.set(name, model);
         }
-        return m;
+        return model;
       },
       stopPropagation($event) {
         $event.stopPropagation();
       }
-    },
-    async mounted() {
-      const monitors = [{
-          title: '测试设备01',
-          url: 'rtmp://xxxxxxxxxxxxxxxxxx',
-        },
-        {
-          title: '测试设备02',
-          url: 'rtmp://xxxxxxxxxxxxxxxxxx',
-        },
-        {
-          title: '测试设备03',
-          url: 'https://www.sheencity.com',
-        },
-        {
-          title: '测试设备04',
-          url: 'https://www.sheencity.com',
-        }
-      ];
-      diva.client.applyScene('监控设备').then(() => {
-        data.changeCode(`client.applyScene('监控设备')`);
-      });
-      this.models = new Map();
-      this.monitorHandlers = [];
-      for (let i = 0; i < monitors.length; i++) {
-        const model = await this.getModelByName(monitors[i].title);
-        const handle = (model) => {
-          const url = monitors.find((m) => m.title === model.name).url;
-          this.setWidget(model, url);
-        };
-        model.setRenderingStyleMode(RenderingStyleMode.Default);
-        model.addEventListener('click', () => {
-          handle(model)
-        });
-        this.monitorHandlers.push(handle);
-      }
-    },
-    destroyed() {
-      this.monitors.forEach(async (m, i) => {
-        const model = await this.getModelByName(m.title);
-        model.removeEventListener('click', this.monitorHandlers[i]);
-      });
     },
     components: {
       contentBlock,

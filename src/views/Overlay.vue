@@ -130,40 +130,31 @@
 </template>
 
 <script>
-  import contentBlock from "../components/content-block.vue";
-  import dropDown from "../components/dropdown.vue";
-  import inputNumber from "../components/input-number.vue"
-
-  import {
-    data,
-    diva
-  } from "../global";
-
-  import {
-    LocalStorageService
-  } from "../services/localStorage.service";
-
   import {
     Emissive,
     Marker,
+    Model,
     POI,
     POIIcon
-  } from "@sheencity/diva-sdk";
-
+  } from '@sheencity/diva-sdk';
   import {
     Quaternion,
     Vector3,
     Euler, 
     deg2rad
-  } from "@sheencity/diva-sdk-math";
-  
+  } from '@sheencity/diva-sdk-math';
   import {
     EmissionType,
     EmissiveOverlay,
     MarkerOverlay,
     OverlayType,
     POIOverlay
-  } from '../models/overlay.model'
+  } from '../models/overlay.model';
+  import contentBlock from '../components/content-block.vue';
+  import dropDown from '../components/dropdown.vue';
+  import inputNumber from '../components/input-number.vue';
+  import { data, diva } from '../global';
+  import { LocalStorageService } from '../services/localStorage.service';
 
   export default {
     data() {
@@ -358,6 +349,7 @@
           overlay.scale = this.scale;
           overlay.opacity = this.opacity;
           const poiOverlay = new POI({
+            // @ts-ignore
             icon: overlay.icon,
             title: overlay.content,
             backgroundColor: overlay.color,
@@ -487,12 +479,11 @@
         $event.stopPropagation();
         this.store.deleteOverlay(overlay);
         this.overlays = this.store.getAllOverlays();
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
-        await entity.destroy();
-        await entity.detach();
-        data.changeCode(`entity.destroy()`);
+        entity.setClient(null);
+        data.changeCode(`entity.setClient(null)`);
       },
-
 
       /**
        * 创建覆盖物之后重置所有配置
@@ -531,19 +522,17 @@
        */
       async selectOverlay(overlay) {
         this.selectedId = overlay.id;
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
-        entity.focus(1000, -Math.PI / 6);
-        data.changeCode(`model.focus(1000, -Math.PI / 6)`);
+        entity.focus(1000, - Math.PI / 6);
+        data.changeCode(`model.focus(1000, - Math.PI / 6)`);
       },
       /**
        * 拾取世界坐标
        */
       async pickup() {
         const handler = (event) => {
-          const wordPosition = event.detail.coord;
-          this.corrdinateX = wordPosition.x;
-          this.corrdinateY = wordPosition.y;
-          this.corrdinateZ = wordPosition.z;
+          [this.corrdinateX, this.corrdinateY, this.corrdinateZ] = event.detail.coord;
           document.body.style.cursor = 'default';
         };
         await diva.client.addEventListener('click', handler, {
@@ -585,10 +574,10 @@
       await diva.client.applyScene('覆盖物');
       data.changeCode(`client.applyScene('覆盖物')`);
       this.overlays.map(async (overlay) => {
+        /**@type {Model} */
         const entity = await diva.client.getEntityById(overlay.id);
         entity.setVisibility(true);
       });
-
     },
     components: {
       contentBlock,

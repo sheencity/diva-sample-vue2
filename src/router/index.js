@@ -1,92 +1,95 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Scene from '../views/Scene.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-const routes = [{
-    path: "/",
-    name: "Scene",
-    component: Scene,
+const routes = [
+  {
+    path: '',
+    redirect: '/scene',
   },
   {
-    path: "/scene",
-    name: "Scene",
+    path: '/scene',
+    name: 'Scene',
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Scene.vue"),
+      import( /* webpackChunkName: 'about' */ '../views/Scene.vue'),
   },
   {
-    path: "/video",
-    name: "Video",
+    path: '/video',
+    name: 'Video',
     component: () =>
-      import( /* webpackChunkName: "video" */ "../views/Video.vue"),
+      import( /* webpackChunkName: 'video' */ '../views/Video.vue'),
   },
   {
-    path: "/global",
-    name: "Global",
+    path: '/global',
+    name: 'Global',
     component: () =>
-      import( /* webpackChunkName: "global" */ "../views/Global.vue"),
+      import( /* webpackChunkName: 'global' */ '../views/Global.vue'),
   },
   {
-    path: "/weather",
-    name: "Weather",
+    path: '/weather',
+    name: 'Weather',
     component: () =>
-      import( /* webpackChunkName: "weather" */ "../views/Weather.vue"),
+      import( /* webpackChunkName: 'weather' */ '../views/Weather.vue'),
   },
   {
-    path: "/floor",
-    name: "Floor",
+    path: '/floor',
+    name: 'Floor',
     component: () =>
-      import( /* webpackChunkName: "floor" */ "../views/Floor.vue"),
+      import( /* webpackChunkName: 'floor' */ '../views/Floor.vue'),
   },
   {
-    path: "/date",
-    name: "Date",
+    path: '/date',
+    name: 'Date',
     component: () =>
-      import( /* webpackChunkName: "date" */ "../views/Date.vue"),
+      import( /* webpackChunkName: 'date' */ '../views/Date.vue'),
   },
   {
-    path: "/state",
-    name: "State",
+    path: '/state',
+    name: 'State',
     component: () =>
-      import( /* webpackChunkName: "state" */ "../views/State.vue"),
+      import( /* webpackChunkName: 'state' */ '../views/State.vue'),
   },
   {
-    path: "/monitor",
-    name: "Monitor",
+    path: '/monitor',
+    name: 'Monitor',
     component: () =>
-      import( /* webpackChunkName: "monitor" */ "../views/Monitor.vue"),
+      import( /* webpackChunkName: 'monitor' */ '../views/Monitor.vue'),
   },
   {
-    path: "/lamp",
-    name: "Lamp",
+    path: '/lamp',
+    name: 'Lamp',
     component: () =>
-      import( /* webpackChunkName: "lamp" */ "../views/Lamp.vue"),
+      import( /* webpackChunkName: 'lamp' */ '../views/Lamp.vue'),
   },
   {
-    path: "/airConditioner",
-    name: "AirConditioner",
+    path: '/airConditioner',
+    name: 'AirConditioner',
     component: () =>
-      import( /* webpackChunkName: "airConditioner" */ "../views/AirConditioner.vue"),
+      import( /* webpackChunkName: 'airConditioner' */ '../views/AirConditioner.vue'),
   },
   {
-    path: "/customize",
-    name: "Customize",
+    path: '/customize',
+    name: 'Customize',
     component: () =>
-      import( /* webpackChunkName: "customize" */ "../views/Customize.vue"),
+      import( /* webpackChunkName: 'customize' */ '../views/Customize.vue'),
   },
   {
-    path: "/overlay",
-    name: "Overlay",
+    path: '/overlay',
+    name: 'Overlay',
     component: () =>
-      import( /* webpackChunkName: "overlay" */ "../views/Overlay.vue"),
+      import( /* webpackChunkName: 'overlay' */ '../views/Overlay.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/scene',
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
