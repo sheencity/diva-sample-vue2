@@ -252,7 +252,7 @@
         },
         {
           value: POIIcon.TrafficLight,
-          placeholder: '红路灯'
+          placeholder: '红绿灯'
         },
         {
           value: POIIcon.TrashCan,
