@@ -21,7 +21,6 @@
 </template>
 
 <script>
-  import { WebRtcAdapter } from '@sheencity/diva-sdk-core';
   import { Subject } from 'rxjs';
   import { debounceTime } from 'rxjs/operators';
   import sHeader from './components/header.vue';
@@ -68,7 +67,7 @@
         this.exampleCode = exampleCode;
       },
       updateResolution() {
-        if (diva.adapter instanceof WebRtcAdapter) {
+        if (!diva.isEmbeddedMode()) {
           const width = this.backendContainer.clientWidth;
           const height = this.backendContainer.clientHeight;
           diva.client.setResolution({ width, height });
