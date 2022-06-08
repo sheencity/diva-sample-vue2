@@ -41,6 +41,10 @@ export class DivaService {
    * @returns 内嵌模式下返回 true
    */
   isEmbeddedMode() {
-    return window.ue?.diva ? true : false;
+    if (window.navigator.userAgent.includes('Mars')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
