@@ -1,5 +1,5 @@
 import { Diva } from '@sheencity/diva-sdk';
-import {  CefAdapter, WebRtcAdapter } from '@sheencity/diva-sdk-core';
+
 export class DivaService {
   /**
    * divaClient
@@ -8,23 +8,39 @@ export class DivaService {
   client;
 
   /**
-   * @type {import('@sheencity/diva-sdk-core').CefAdapter | import('@sheencity/diva-sdk-core').WebRtcAdapter}
-   */
-  adapter;
-
-  /**
    * 初始话 webRtc 链接
-   * @param container (HTMLElement) 视频加载的 dom 元素
+   * @param element (HTMLElement) 视频加载的 dom 元素
    */
-  async init(container) {
-    console.log({ container });
-    const apiKey = '<replace_your_api_key_here>';
-    this.adapter = /Mars/.test(globalThis.navigator.userAgent)
-      ? new CefAdapter(container) // 使用内嵌模式
-      : new WebRtcAdapter(container, new URL('ws://127.0.0.1:3000')); // 使用云渲染模式
-    const diva = new Diva({ apiKey, adapter: this.adapter });
+  async init(element) {
+    console.log({ element });
+    let diva;
+    if (this.isEmbeddedMode()) {
+      // 使用内嵌模式
+      diva = new Diva({
+        mode: 'embedded',
+        apiKey: 'xxx',
+        container: element,
+      });
+    } else {
+      // 使用云渲染模式
+      diva = new Diva({
+        mode: 'cloud',
+        apiKey: 'xxx',
+        container: element,
+        url: new URL('ws://127.0.0.1:3000'),
+        logType: 'resolved',
+      });
+    }
     console.log('diva is', diva);
     this.client = await diva.init();
     console.log('client is', this.client);
+  }
+
+  /**
+   * 判断是否启用内嵌模式
+   * @returns 内嵌模式下返回 true
+   */
+  isEmbeddedMode() {
+    return window.navigator.userAgent.includes('Mars');
   }
 }
