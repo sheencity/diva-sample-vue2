@@ -515,6 +515,10 @@
           value: POIIcon.Camera,
           placeholder: '摄像头',
         };
+        this.selectedIconType = {
+          value: '',
+          placeholder: 'POI文字标签',
+        };
         this.selectedEmissive = {
           value: EmissionType.type1,
           placeholder: '悬浮标记01',
