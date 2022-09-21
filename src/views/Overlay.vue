@@ -56,7 +56,7 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>类型</span>
         <div>
-          <drop-down :key="3" :options="iconTypeOption" :initvalue="iconTypeInitial" @select="setSelectedIconType"
+          <drop-down :key="3" :options="iconTypeOptions" :initvalue="iconTypeInitial" @select="setSelectedIconType"
             :disabled="false"></drop-down>
         </div>
       </div>
@@ -155,7 +155,8 @@
     EmissiveOverlay,
     MarkerOverlay,
     OverlayType,
-    POIOverlay
+    POIOverlay,
+    POIIconType
   } from '../models/overlay.model';
   import contentBlock from '../components/content-block.vue';
   import dropDown from '../components/dropdown.vue';
@@ -170,7 +171,7 @@
         typeOptions: [],
         alignOptions: [],
         iconOptions: [],
-        iconTypeOption: [],
+        iconTypeOptions: [],
         emissiveOptions: [],
         overlays: [],
         selectedType: {
@@ -182,7 +183,7 @@
           placeholder: '摄像头',
         },
         selectedIconType: {
-          value: 'POI文字标签',
+          value: POIIconType.type1,
           placeholder: 'POI文字标签',
         },
         selectedEmissive: {
@@ -315,10 +316,10 @@
           placeholder: '卫生间'
         },
       ];
-      this.iconTypeOption = [
-        { value: 'POI文字标签', placeholder: 'POI文字标签' },
-        { value: 'POI圆形标签', placeholder: 'POI圆形标签' },
-        { value: 'POI水滴', placeholder: 'POI水滴' },
+      this.iconTypeOptions = [
+        { value: POIIconType.type1, placeholder: 'POI文字标签' },
+        { value: POIIconType.type2, placeholder: 'POI圆形标签' },
+        { value: POIIconType.type3, placeholder: 'POI水滴' },
       ];
       this.emissiveOptions = [{
           value: EmissionType.type1,
@@ -516,7 +517,7 @@
           placeholder: '摄像头',
         };
         this.selectedIconType = {
-          value: '',
+          value: POIIconType.type1,
           placeholder: 'POI文字标签',
         };
         this.selectedEmissive = {
