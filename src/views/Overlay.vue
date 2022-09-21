@@ -56,6 +56,13 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>类型</span>
         <div>
+          <drop-down :key="3" :options="iconTypeOption" :initvalue="iconTypeInitial" @select="setSelectedIconType"
+            :disabled="false"></drop-down>
+        </div>
+      </div>
+      <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
+        <span>图标</span>
+        <div>
           <drop-down :key="4" :options="iconOptions" :initvalue="iconInitial" @select="setSelectedIcon"
             :disabled="false">
           </drop-down>
@@ -163,6 +170,7 @@
         typeOptions: [],
         alignOptions: [],
         iconOptions: [],
+        iconTypeOption: [],
         emissiveOptions: [],
         overlays: [],
         selectedType: {
@@ -172,6 +180,10 @@
         selectedIcon: {
           value: POIIcon.Camera,
           placeholder: '摄像头',
+        },
+        selectedIconType: {
+          value: 'POI文字标签',
+          placeholder: 'POI文字标签',
         },
         selectedEmissive: {
           value: EmissionType.type1,
@@ -208,6 +220,10 @@
         iconInitial: {
           value: 'camera',
           placeholder: '摄像头'
+        },
+        iconTypeInitial: {
+          value: 'POI文字标签',
+          placeholder: 'POI文字标签'
         },
         typeInitial: {
           value: 'poi',
@@ -299,6 +315,11 @@
           placeholder: '卫生间'
         },
       ];
+      this.iconTypeOption = [
+        { value: 'POI文字标签', placeholder: 'POI文字标签' },
+        { value: 'POI圆形标签', placeholder: 'POI圆形标签' },
+        { value: 'POI水滴', placeholder: 'POI水滴' },
+      ];
       this.emissiveOptions = [{
           value: EmissionType.type1,
           placeholder: '悬浮标记01'
@@ -341,6 +362,7 @@
         if (this.selectedType.value === OverlayType.POI) {
           const overlay = new POIOverlay();
           overlay.icon = this.selectedIcon.value;
+          overlay.iconType = this.selectedIconType.value;
           overlay.corrdinateX = this.corrdinateX;
           overlay.corrdinateY = this.corrdinateY;
           overlay.corrdinateZ = this.corrdinateZ;
@@ -356,7 +378,7 @@
             opacity: overlay.opacity,
             scale: new Vector3(overlay.scale, overlay.scale, overlay.scale),
             resource: {
-              name: 'POI文字标签',
+              name: overlay.iconType,
             },
             coord: new Vector3(
               overlay.corrdinateX,
@@ -566,6 +588,10 @@
         this.selectedIcon.value = item.value;
         this.selectedIcon.placeholder = item.placeholder;
       },
+      setSelectedIconType(item) {
+        this.selectedIconType.value = item.value;
+        this.selectedIconType.placeholder = item.placeholder;
+      }
     },
     async mounted() {
       this.store.getAllOverlays().forEach(e => {
