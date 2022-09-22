@@ -818,6 +818,9 @@
             margin-left: 12px;
             width: 24px;
             height: 24px;
+            img {
+              pointer-events: none;
+            }
           }
         }
       }
