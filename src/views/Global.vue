@@ -42,11 +42,11 @@
         <div class="drop-item">
           <span>模式</span>
           <div>
-            <drop-down :options="options" :initvalue="initvalue" @select="select" :disabled="false"></drop-down>
+            <drop-down v-model="selectedMode" :options="options" :disabled="false" />
           </div>
         </div>
         <div class="switch-item">
-          <switcher :label="'罗盘'" v-model="compass" @switch="swit"></switcher>
+          <switcher :label="'罗盘'" v-model="compass"></switcher>
         </div>
       </div>
     </div>
@@ -68,36 +68,45 @@
   export default {
     data() {
       return {
-        compass: false,
         options: [{
-            value: "false",
-            placeholder: "飞行",
-          },
-          {
-            value: "true",
-            placeholder: "人视",
-          },
-        ],
-        initvalue: {
           value: "false",
           placeholder: "飞行",
-        }
+        },
+        {
+          value: "true",
+          placeholder: "人视",
+        },
+        ],
+        defaultMode: {
+          value: "false",
+          placeholder: "飞行",
+        },
       }
     },
-    methods: {
-      select(v) {
-        diva.client.setMovementMode(
-          v.value == "true" ? MovementMode.ThirdPerson : MovementMode.Fly
-        );
-        data.changeCode(
-          `client.setMovementMode(${
-          v.value == "true" ? "MovementMode.ThirdPerson" : "MovementMode.Fly"
-        })`
-        );
+    computed: {
+      selectedMode: {
+        get: function () {
+          return this.defaultMode;
+        },
+        set: function (v) {
+          this.defaultMode = v;
+          diva.client.setMovementMode(
+            v.value == "true" ? MovementMode.ThirdPerson : MovementMode.Fly
+          );
+          data.changeCode(
+            `client.setMovementMode(${v.value == "true" ? "MovementMode.ThirdPerson" : "MovementMode.Fly"
+            })`
+          );
+        }
       },
-      swit(v) {
-        diva.client.setCompass(!this.compass);
-        data.changeCode(`client.setCompass(${!this.compass})`);
+      compass: {
+        get: function () {
+          return false;
+        },
+        set: function (v) {
+          diva.client.setCompass(v);
+          data.changeCode(`client.setCompass(${v})`);
+        }
       }
     },
     async mounted() {

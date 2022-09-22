@@ -17,7 +17,7 @@
         <div class="drop-item">
           <span>聚焦楼层</span>
           <div>
-            <drop-down class="drop-down" :options="options" :initvalue="initial" @select="selectf" :disabled="!gradation"></drop-down>
+            <drop-down class="drop-down" v-model="selectedFloor" :options="options" @select="selectf" :disabled="!gradation"></drop-down>
             <span style="margin-left: 4px;">层</span>
           </div>
         </div>
@@ -65,7 +65,6 @@
         explode: false,
         gradation: false,
         options: [],
-        initial: {}
       }
     },
 
@@ -135,12 +134,7 @@
             value: "顶楼_12",
             pipeLineName: "顶层管线"
           },
-        ],
-        this.initial = {
-          placeholder: "1",
-          value: "一层-1_1",
-          pipeLineName: "一层管线",
-        }
+        ]
     },
     methods: {
       setexplode(val) {

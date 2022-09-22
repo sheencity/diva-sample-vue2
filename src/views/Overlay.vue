@@ -6,9 +6,7 @@
       <div class="drop-item">
         <span>种类</span>
         <div>
-          <drop-down :key="1" :options="typeOptions" :initvalue="typeInitial" @select="setSelectedType"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedType" :key="1" :options="typeOptions" :disabled="false" />
         </div>
       </div>
       <div class="btn-item">
@@ -41,31 +39,25 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'Marker'">
         <span>对齐方式</span>
         <div>
-          <drop-down :key="2" :options="alignOptions" :initvalue="alignInitial" @select="setSelectedAlign"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedAlign" :key="2" :options="alignOptions" :disabled="false" />
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'emissive'">
         <span>类型</span>
         <div>
-          <drop-down :key="3" :options="emissiveOptions" :initvalue="emissiveInitial" @select="setSelectedEmissive"
-            :disabled="false"></drop-down>
+          <drop-down v-model="selectedEmissive" :key="3" :options="emissiveOptions" :disabled="false" />
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>类型</span>
         <div>
-          <drop-down :key="3" :options="iconTypeOptions" :initvalue="iconTypeInitial" @select="setSelectedIconType"
-            :disabled="false"></drop-down>
+          <drop-down v-model="selectedIconType" :key="3" :options="iconTypeOptions" :disabled="false" />
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>图标</span>
         <div>
-          <drop-down :key="4" :options="iconOptions" :initvalue="iconInitial" @select="setSelectedIcon"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedIcon" :key="4" :options="iconOptions" :disabled="false" />
         </div>
       </div>
       <div class="input-item">
@@ -174,6 +166,10 @@
         iconTypeOptions: [],
         emissiveOptions: [],
         overlays: [],
+        selectedAlign: {
+          value: 'center',
+          placeholder: '居中',
+        },
         selectedType: {
           value: OverlayType.POI,
           placeholder: 'POI',
@@ -206,30 +202,6 @@
         selectedId: null,
         emission: 1.0,
         speed: 2.0,
-        selectedAlign: {
-          value: 'center',
-          placeholder: '居中',
-        },
-        alignInitial: {
-          value: 'center',
-          placeholder: '居中'
-        },
-        emissiveInitial: {
-          value: '悬浮标记01',
-          placeholder: '悬浮标记01'
-        },
-        iconInitial: {
-          value: 'camera',
-          placeholder: '摄像头'
-        },
-        iconTypeInitial: {
-          value: 'POI文字标签',
-          placeholder: 'POI文字标签'
-        },
-        typeInitial: {
-          value: 'poi',
-          placeholder: 'POI'
-        },
       }
     },
     created() {
@@ -316,8 +288,8 @@
           placeholder: '卫生间'
         },
       ];
-      this.iconTypeOptions = [
-        { value: POIIconType.type1, placeholder: 'POI文字标签' },
+      this.iconTypeOptions = [{
+        value: POIIconType.type1, placeholder: 'POI文字标签' },
         { value: POIIconType.type2, placeholder: 'POI圆形标签' },
         { value: POIIconType.type3, placeholder: 'POI水滴' },
       ];
@@ -576,26 +548,6 @@
        */
       onKeyDown($event) {
         $event.stopPropagation();
-      },
-      setSelectedType(item) {
-        this.selectedType.value = item.value;
-        this.selectedType.placeholder = item.placeholder;
-      },
-      setSelectedAlign(item) {
-        this.selectedAlign.value = item.value;
-        this.selectedAlign.placeholder = item.placeholder;
-      },
-      setSelectedEmissive(item) {
-        this.selectedEmissive.value = item.value;
-        this.selectedEmissive.placeholder = item.placeholder;
-      },
-      setSelectedIcon(item) {
-        this.selectedIcon.value = item.value;
-        this.selectedIcon.placeholder = item.placeholder;
-      },
-      setSelectedIconType(item) {
-        this.selectedIconType.value = item.value;
-        this.selectedIconType.placeholder = item.placeholder;
       }
     },
     async mounted() {
