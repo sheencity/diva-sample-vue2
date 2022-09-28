@@ -153,6 +153,7 @@
 
       .content-item {
         width: 100%;
+        pointer-events: none;
 
         span {
           color: #fff;
@@ -174,6 +175,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        pointer-events: none;
 
         span {
           color: #fff;
@@ -184,6 +186,7 @@
           width: 20px;
           height: 20px;
           cursor: pointer;
+          pointer-events: all;
         }
       }
 

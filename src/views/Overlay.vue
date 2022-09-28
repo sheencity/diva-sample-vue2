@@ -6,9 +6,7 @@
       <div class="drop-item">
         <span>种类</span>
         <div>
-          <drop-down :key="1" :options="typeOptions" :initvalue="typeInitial" @select="setSelectedType"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedType" :key="1" :options="typeOptions" :disabled="false" />
         </div>
       </div>
       <div class="btn-item">
@@ -41,24 +39,25 @@
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'Marker'">
         <span>对齐方式</span>
         <div>
-          <drop-down :key="2" :options="alignOptions" :initvalue="alignInitial" @select="setSelectedAlign"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedAlign" :key="2" :options="alignOptions" :disabled="false" />
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'emissive'">
         <span>类型</span>
         <div>
-          <drop-down :key="3" :options="emissiveOptions" :initvalue="emissiveInitial" @select="setSelectedEmissive"
-            :disabled="false"></drop-down>
+          <drop-down v-model="selectedEmissive" :key="3" :options="emissiveOptions" :disabled="false" />
         </div>
       </div>
       <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
         <span>类型</span>
         <div>
-          <drop-down :key="4" :options="iconOptions" :initvalue="iconInitial" @select="setSelectedIcon"
-            :disabled="false">
-          </drop-down>
+          <drop-down v-model="selectedIconType" :key="3" :options="iconTypeOptions" :disabled="false" />
+        </div>
+      </div>
+      <div class="drop-item" style="margin-top: 12px;" v-if="selectedType.value === 'poi'">
+        <span>图标</span>
+        <div>
+          <drop-down v-model="selectedIcon" :key="4" :options="iconOptions" :disabled="false" />
         </div>
       </div>
       <div class="input-item">
@@ -148,7 +147,8 @@
     EmissiveOverlay,
     MarkerOverlay,
     OverlayType,
-    POIOverlay
+    POIOverlay,
+    POIIconType
   } from '../models/overlay.model';
   import contentBlock from '../components/content-block.vue';
   import dropDown from '../components/dropdown.vue';
@@ -163,8 +163,13 @@
         typeOptions: [],
         alignOptions: [],
         iconOptions: [],
+        iconTypeOptions: [],
         emissiveOptions: [],
         overlays: [],
+        selectedAlign: {
+          value: 'center',
+          placeholder: '居中',
+        },
         selectedType: {
           value: OverlayType.POI,
           placeholder: 'POI',
@@ -172,6 +177,10 @@
         selectedIcon: {
           value: POIIcon.Camera,
           placeholder: '摄像头',
+        },
+        selectedIconType: {
+          value: POIIconType.type1,
+          placeholder: 'POI文字标签',
         },
         selectedEmissive: {
           value: EmissionType.type1,
@@ -193,26 +202,6 @@
         selectedId: null,
         emission: 1.0,
         speed: 2.0,
-        selectedAlign: {
-          value: 'center',
-          placeholder: '居中',
-        },
-        alignInitial: {
-          value: 'center',
-          placeholder: '居中'
-        },
-        emissiveInitial: {
-          value: '悬浮标记01',
-          placeholder: '悬浮标记01'
-        },
-        iconInitial: {
-          value: 'camera',
-          placeholder: '摄像头'
-        },
-        typeInitial: {
-          value: 'poi',
-          placeholder: 'POI'
-        },
       }
     },
     created() {
@@ -299,6 +288,11 @@
           placeholder: '卫生间'
         },
       ];
+      this.iconTypeOptions = [{
+        value: POIIconType.type1, placeholder: 'POI文字标签' },
+        { value: POIIconType.type2, placeholder: 'POI圆形标签' },
+        { value: POIIconType.type3, placeholder: 'POI水滴' },
+      ];
       this.emissiveOptions = [{
           value: EmissionType.type1,
           placeholder: '悬浮标记01'
@@ -341,6 +335,7 @@
         if (this.selectedType.value === OverlayType.POI) {
           const overlay = new POIOverlay();
           overlay.icon = this.selectedIcon.value;
+          overlay.iconType = this.selectedIconType.value;
           overlay.corrdinateX = this.corrdinateX;
           overlay.corrdinateY = this.corrdinateY;
           overlay.corrdinateZ = this.corrdinateZ;
@@ -356,7 +351,7 @@
             opacity: overlay.opacity,
             scale: new Vector3(overlay.scale, overlay.scale, overlay.scale),
             resource: {
-              name: 'POI文字标签',
+              name: overlay.iconType,
             },
             coord: new Vector3(
               overlay.corrdinateX,
@@ -493,6 +488,10 @@
           value: POIIcon.Camera,
           placeholder: '摄像头',
         };
+        this.selectedIconType = {
+          value: POIIconType.type1,
+          placeholder: 'POI文字标签',
+        };
         this.selectedEmissive = {
           value: EmissionType.type1,
           placeholder: '悬浮标记01',
@@ -549,23 +548,7 @@
        */
       onKeyDown($event) {
         $event.stopPropagation();
-      },
-      setSelectedType(item) {
-        this.selectedType.value = item.value;
-        this.selectedType.placeholder = item.placeholder;
-      },
-      setSelectedAlign(item) {
-        this.selectedAlign.value = item.value;
-        this.selectedAlign.placeholder = item.placeholder;
-      },
-      setSelectedEmissive(item) {
-        this.selectedEmissive.value = item.value;
-        this.selectedEmissive.placeholder = item.placeholder;
-      },
-      setSelectedIcon(item) {
-        this.selectedIcon.value = item.value;
-        this.selectedIcon.placeholder = item.placeholder;
-      },
+      }
     },
     async mounted() {
       this.store.getAllOverlays().forEach(e => {
@@ -787,6 +770,9 @@
             margin-left: 12px;
             width: 24px;
             height: 24px;
+            img {
+              pointer-events: none;
+            }
           }
         }
       }

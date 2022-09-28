@@ -25,6 +25,12 @@ export const POIIcon = {
     Toilet: 'toilet',
 }
 
+export const POIIconType = {
+    type1: 'POI文字标签',
+    type2: 'POI圆形标签',
+    type3: 'POI水滴',
+}
+
 export const EmissionType = {
     type1: '悬浮标记01',
     type2: '圆形区域轮廓02',
@@ -58,6 +64,7 @@ export class POIOverlay extends Overlay {
         super(...arguments);
         this.type = OverlayType.POI;
         this.icon = '';
+        this.iconType = '';
     }
 }
 

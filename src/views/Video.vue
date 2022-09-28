@@ -114,11 +114,13 @@
         line-height: 20px;
         font-weight: bold;
         color: #fff;
+        pointer-events: none;
       }
 
       .icon {
         width: 24px;
         height: 24px;
+        pointer-events: none;
       }
     }
 

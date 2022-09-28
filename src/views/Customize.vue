@@ -5,8 +5,7 @@
       <div class="drop-item">
         <span>{{ lift.title }}</span>
         <div>
-          <drop-down :options="options" :initvalue="initvalue" @select="selectLift($event,i)" :disabled="false">
-          </drop-down>
+          <drop-down v-model="lift.selected" :options="options" @select="selectLift($event,i)" :disabled="false" />
           <span style="margin-left: 4px">层</span>
         </div>
       </div>
@@ -37,10 +36,6 @@
         currentLift: [1, 1, 1, 1],
         step: 299.7,
         options: [],
-        initvalue: {
-          value: '1',
-          placeholder: '1'
-        }
       }
     },
     created() {

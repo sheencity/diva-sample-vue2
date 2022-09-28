@@ -5,8 +5,7 @@
       <div class="drop-item" :class="{'selected':selected === i}">
         <span>{{equipment.title}}</span>
         <div class="drop-down">
-          <drop-down :options="options" :initvalue="initial" @select="onChange(equipment, $event)" :disabled="false">
-          </drop-down>
+          <drop-down v-model="equipment.selected" :options="options" @select="onChange(equipment, $event)" :disabled="false" />
         </div>
       </div>
     </div>
@@ -29,10 +28,6 @@
       return {
         equipments: [],
         options: [],
-        initial: {
-          value: RenderingStyleMode.Default,
-          placeholder: "默认"
-        },
         selected: null
       }
     },

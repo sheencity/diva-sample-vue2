@@ -113,6 +113,7 @@
 
       .switch-item {
         width: 100%;
+        pointer-events: none;
 
         app-switcher {
           width: 100%;

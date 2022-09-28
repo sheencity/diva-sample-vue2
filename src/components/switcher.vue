@@ -40,6 +40,7 @@
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
+    pointer-events: none;
 
     .switcher-lable-title {
       display: inline-block;
@@ -55,6 +56,7 @@
       height: 14px;
       position: relative;
       display: inline-block;
+      pointer-events: all;
     }
 
     .switch-disabled {
